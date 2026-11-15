@@ -26,6 +26,8 @@ Verification date is 2026-11-15 on GitHub.com, repository thinkhome-org/full-git
 - It created the Capabilities Project view through projects/create-view-for-org with a repository/label filter. A GraphQL read confirmed the view.
 - GraphQL updateProjectV2View renamed existing views to Overview, Workflow and Roadmap. A subsequent read confirmed all four saved views and layouts.
 - The expanded audit executed 55 repository, organization and Project probes. 48 returned observed data and seven remained unknown. Project fields/items/views were paginated. Classic branch protection was inspected separately from rulesets.
+- Two reconciliation passes preserved all label/view IDs and content, retained the new objects, created no duplicates and performed zero repeat writes. This verifies the exercised label/view scope.
+- Independent code review found binary-response wrapping and administrative array-filter defects. Regression tests reproduce the relevant request/output behavior and both fixes passed.
 - Initial 0.1 acceptance already exercised issue → PR → merged → automatic Project Done, Wiki publication, marketplace installation and fresh Codex skill discovery. The 0.2 release uses the same distribution route.
 
 ## Unresolved live reads
