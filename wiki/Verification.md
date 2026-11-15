@@ -1,6 +1,6 @@
 # Verification record
 
-## Version 0.2.0
+## Version 0.2.1
 
 Verification date is 2026-11-15 on GitHub.com, repository thinkhome-org/full-github and organization Project 5.
 
@@ -13,9 +13,11 @@ Verification date is 2026-11-15 on GitHub.com, repository thinkhome-org/full-git
 - Eighteen confirmed retired REST operations carry closure/replacement metadata and are blocked by the executor.
 - Current Projects view CRUD and status-update CRUD were confirmed in the live schema. Earlier blanket UI-only guidance has been corrected.
 
+Version 0.2.1 additionally preserves an explicit upload Content-Type header when a caller selects an asset MIME type.
+
 ## Automated checks
 
-- 24 unit tests cover parameter boundaries, path/query encoding, body handling, binary upload host/media type, dry-run, remote exit status, retirement blocking, schema coverage, documented array filters, real-gh binary download byte preservation, pagination, empty responses, failures, classic branch protection and inaccessible Projects.
+- 25 unit tests cover parameter boundaries, path/query encoding, body handling, binary upload host/media type, dry-run, remote exit status, retirement blocking, schema coverage, documented array filters, real-gh binary download byte preservation, pagination, empty responses, failures, classic branch protection and inaccessible Projects.
 - Manifest, capability schema, unique IDs, retired metadata and GraphQL root/type consistency are validated.
 - Generated capability and operation directories are checked for drift.
 

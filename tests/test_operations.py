@@ -64,6 +64,13 @@ class OperationTests(unittest.TestCase):
         self.assertTrue(argv[4].startswith("https://uploads.github.com/"))
         self.assertIn("Content-Type: application/octet-stream", argv)
 
+    def test_explicit_upload_content_type_is_preserved(self):
+        argv = module.build_request(self.catalog["repos/upload-release-asset"],
+                                    {"owner": "o", "repo": "r", "release_id": 1, "name": "a.zip"}, b"zip",
+                                    extra_headers=["Content-Type: application/zip"])
+        self.assertIn("Content-Type: application/zip", argv)
+        self.assertNotIn("Content-Type: application/octet-stream", argv)
+
     def test_retired_operation_never_reaches_network(self):
         with mock.patch("sys.argv", ["operations.py", "call", "dependency-graph/export-sbom"]), mock.patch.object(module.subprocess, "run") as run:
             with contextlib.redirect_stderr(io.StringIO()):

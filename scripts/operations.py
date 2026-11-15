@@ -82,7 +82,8 @@ def build_request(operation, parameters, body=None, extra_headers=()):
         command.extend(["--paginate", "--slurp"])
     if body is not None:
         content_types = operation.get("body_content_types", [])
-        if content_types and "application/json" not in content_types:
+        has_content_type = any(header.lower().startswith("content-type:") for header in headers[1::2])
+        if content_types and "application/json" not in content_types and not has_content_type:
             command.extend(["-H", f"Content-Type: {content_types[0]}"])
         command.extend(["--input", "-"])
     return command
