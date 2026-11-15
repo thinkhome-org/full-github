@@ -46,7 +46,7 @@ def package(root, output, tag):
     filename = f"full-github-{tag[1:]}.zip"
     with tempfile.TemporaryDirectory(dir=output) as temporary:
         archive = Path(temporary) / filename
-        subprocess.run(["git", "archive", "--format=zip", "--prefix=full-github/", "-o", str(archive.resolve()), "HEAD"], cwd=root, check=True)
+        subprocess.run(["git", "archive", "--format=zip", "--prefix=full-github/", "-o", str(archive.resolve()), source_commit], cwd=root, check=True)
         with zipfile.ZipFile(archive) as zipped:
             if zipped.testzip() is not None:
                 raise ValueError("Invalid ZIP payload")

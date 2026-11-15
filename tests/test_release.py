@@ -6,6 +6,7 @@ import sys
 import tempfile
 import unittest
 import zipfile
+from unittest import mock
 
 sys.path.insert(0, str(Path(__file__).parents[1] / "scripts"))
 import package_release
@@ -88,6 +89,18 @@ class PackagingTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "checked-out source commit"):
                 package_release.package(root, Path(temporary) / "output", "v0.3.0")
             self.assertEqual(destination.read_bytes(), archive_before)
+            moved_head = subprocess.check_output(["git", "rev-parse", "v0.3.0^{commit}"], cwd=root, text=True).strip()
+            subprocess.run(["git", "tag", "-f", "v0.3.0", original], cwd=root, check=True, capture_output=True)
+            original_run = subprocess.run
+            def switch_head_during_archive(argv, **kwargs):
+                if argv[:2] == ["git", "archive"]:
+                    original_run(["git", "checkout", "--quiet", moved_head], cwd=root, check=True)
+                return original_run(argv, **kwargs)
+            with mock.patch.object(package_release.subprocess, "run", side_effect=switch_head_during_archive):
+                stable = package_release.package(root, Path(temporary) / "output", "v0.3.0")
+            with zipfile.ZipFile(stable) as archived:
+                self.assertEqual(archived.comment.decode(), original)
+                self.assertNotIn("full-github/payload.txt", archived.namelist())
 
 
 class PublicationTests(unittest.TestCase):
