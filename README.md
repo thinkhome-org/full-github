@@ -39,7 +39,7 @@ See the [Wiki](https://github.com/thinkhome-org/full-github/wiki), [coverage ref
 
 ## Status
 
-Version 0.1 is an initial public release. UI-only Projects configuration requires computer access. GitHub permissions and subscription features vary. See Wiki verification for tested capabilities and outstanding limitations.
+Version 0.1 is an initial public release. UI-only Projects configuration requires computer access. GitHub permissions and subscription features vary. See [Wiki verification](https://github.com/thinkhome-org/full-github/wiki/Verification) for tested capabilities and outstanding limitations.
 
 ## License
 
