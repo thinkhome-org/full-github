@@ -19,12 +19,15 @@ def audit(repo, run=subprocess.run):
     }
     result = {}
     for name, endpoint in endpoints.items():
-        response = run(["gh", "api", "--paginate", "--slurp", endpoint],
-                       capture_output=True, text=True, timeout=60)
-        if response.returncode:
-            result[name] = {"status": "unknown", "error": response.stderr.strip()}
-        else:
-            result[name] = {"status": "observed", "pages": json.loads(response.stdout)}
+        try:
+            response = run(["gh", "api", "--paginate", "--slurp", endpoint],
+                           capture_output=True, text=True, timeout=60)
+            if response.returncode:
+                result[name] = {"status": "unknown", "error": response.stderr.strip()}
+            else:
+                result[name] = {"status": "observed", "pages": json.loads(response.stdout)}
+        except (subprocess.TimeoutExpired, json.JSONDecodeError, OSError) as error:
+            result[name] = {"status": "unknown", "error": str(error)}
     return result
 
 

@@ -18,6 +18,21 @@ class AuditTests(unittest.TestCase):
         self.assertEqual(result["labels"]["status"], "unknown")
         self.assertIn("403", result["labels"]["error"])
 
+    def test_endpoint_failures_preserve_other_evidence(self):
+        for failure in ("timeout", "json"):
+            calls = []
+            def run(argv, **kwargs):
+                calls.append(argv)
+                if len(calls) == 2:
+                    if failure == "timeout":
+                        raise subprocess.TimeoutExpired(argv, 60)
+                    return subprocess.CompletedProcess(argv, 0, "{invalid", "")
+                return subprocess.CompletedProcess(argv, 0, "[{}]", "")
+            result = module.audit("owner/repo", run)
+            self.assertEqual(result["labels"]["status"], "unknown")
+            self.assertEqual(result["community"]["status"], "observed")
+            self.assertEqual(len(calls), 7)
+
     def test_paginated_response_is_preserved(self):
         def run(argv, **kwargs):
             self.assertIn("--paginate", argv)
