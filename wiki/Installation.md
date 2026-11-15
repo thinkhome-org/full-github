@@ -1,5 +1,17 @@
 # Installation
 
-Install gh, Git, Python 3 and a current Codex. Authenticate gh.
+Requires Codex with plugin support, Python 3.10+, Git and authenticated gh.
 
-Run `codex plugin marketplace add thinkhome-org/full-github`, then `codex plugin add full-github@thinkhome`. Open a new Codex chat and select the plugin.
+```sh
+codex plugin marketplace add thinkhome-org/full-github
+codex plugin add full-github@thinkhome
+```
+
+For an existing installation, refresh the source and install the current version.
+
+```sh
+codex plugin marketplace upgrade thinkhome
+codex plugin add full-github@thinkhome
+```
+
+Open a fresh Codex chat in the target repository and select Full GitHub. Ask for an audit, setup or delivery workflow. See [[Usage]] and [[API]].

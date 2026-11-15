@@ -1,7 +1,7 @@
 {
   "name": "full-github",
-  "version": "0.1.0",
-  "description": "Use GitHub fully throughout repository setup, delivery and maintenance.",
+  "version": "0.2.0",
+  "description": "Source-backed GitHub capability discovery and execution for Codex, including repository, organization and enterprise workflows.",
   "author": {
     "name": "ThinkHome",
     "url": "https://github.com/thinkhome-org"
@@ -11,7 +11,7 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Full GitHub",
-    "shortDescription": "Complete GitHub workflows for Codex",
+    "shortDescription": "Discover and use the complete GitHub surface",
     "defaultPrompt": [
       "Audit this repository with Full GitHub.",
       "Set up this repository using the full profile.",

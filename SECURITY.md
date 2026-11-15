@@ -4,4 +4,4 @@ Report vulnerabilities privately through https://github.com/thinkhome-org/full-g
 
 Avoid posting tokens or private repository snapshots in public issues. The audit script reads with the current gh identity. Its output may contain private repository metadata. Review it before sharing.
 
-Supported version is the latest 0.1 release.
+The latest published release receives security fixes.

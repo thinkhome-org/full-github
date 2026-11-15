@@ -1,24 +1,22 @@
-# Full profile coverage
+# Full capability profile
 
-Inspect all rows. Use the current official GitHub documentation for fields or APIs whose support is uncertain. Do not assume UI features have write APIs.
+The catalog covers 261 source-backed feature families across collaboration, delivery/security and administration. The operation registry indexes 1,281 published REST operations and the live GraphQL schema, including deprecated and retired entries identified separately. Snapshot date is 2026-11-15.
 
-| Area | Inspect and reconcile | Evidence |
-| --- | --- | --- |
-| Identity | Description, homepage, topics, visibility, default branch, features | Repository API and About |
-| Issues | Templates/forms, labels, organization issue types, assignees, milestones, sub-issues, dependencies, duplicate handling | Issue API, concrete issue |
-| Projects | Existing linked organization/user Projects v2, fields, status, priority, iteration, dates, issue types, table/board/roadmap views, filters/grouping, insights, workflows, templates, updates | GraphQL/gh project plus UI for unsupported mutations |
-| Collaboration | Discussions, pinned issues, contributing guidance, support route, ownership | Settings, files and rendered pages |
-| Branches and PRs | Naming, linked issues, templates, review routing, CODEOWNERS, rulesets, required checks, merge strategies, stale branch cleanup | Rulesets API and tested PR |
-| Actions | Stack-appropriate build/test/lint, least privilege permissions, pinned actions, concurrency, untrusted PR safety, release workflows | Successful workflow runs |
-| Security | SECURITY.md, vulnerability reporting, dependency graph, Dependabot alerts/updates, code scanning, secret scanning and push protection where available | Security APIs/settings and workflow runs |
-| Documentation | README, badges tied to actual checks/releases, CONTRIBUTING.md, GITHUB.md linked from AGENTS.md, support, license choice and notices | Rendered documents and working links |
-| Wiki | Home, sidebar, installation, usage, architecture, permissions, troubleshooting, maintenance | Published Wiki pages and checked links |
-| Releases | Version source, changelog/release notes, tags, artifacts, prerelease policy, provenance where relevant | Release API, downloaded artifact validation |
-| Packages | Actual distributable package, registry permissions and supported ecosystem | Published package when applicable |
-| Pages | Documentation site when requested or useful, source and deployment policy | Successful deployment and public URL |
-| Git hooks | Existing local validation needs, explicit installation and platform support | Executed hook when applicable |
-| Organization | Teams, issue types, Project templates, shared workflows, policies within authorized scope | Organization APIs/settings |
+Use the machine-readable catalog through operations.py capabilities or capability ID. Each entry contains operations, access surfaces, official sources, verification and limitations. Read the relevant sections of these references.
 
-Use conventional uppercase GitHub community filenames. NOTICE is needed for applicable attribution obligations. Ask about an unresolved license before selecting one. AGENTS.md is the Codex instruction entry point. engines.md has no established universal GitHub behavior; clarify intended content or document actual runtime requirements in the ecosystem's native manifest.
+| Reference | Coverage |
+| --- | --- |
+| [Collaboration](collaboration.md) | Repository identity/content/Git, Issues and shared fields, sub-issues/dependencies, PR stacks and Agent Merge, protection/rulesets, Projects fields/views/workflows/status updates/insights, Discussions, Wiki, search and notifications |
+| [Delivery and security](delivery-security.md) | Actions and policies, runs/jobs/logs/artifacts/caches/concurrency, runners, secrets/variables/OIDC, environments/deployments, code scanning/quality, Dependabot/dependency graph, secret scanning, advisories, campaigns, releases/attestations, Packages and Pages |
+| [Administration](administration.md) | User/org/enterprise identity and policies, roles/teams/membership, custom properties, apps/OAuth/tokens/webhooks/audit, billing/usage, migrations, Codespaces/LFS, Copilot and Spaces, agent tasks/automations/credentials, private registries and historical closed APIs |
+| [Operation execution](operations.md) | Complete REST operation search/describe/call, GraphQL input types, token constraints, compatibility, registry refresh and retirement handling |
 
-Mark unavailable paid features as unavailable with evidence. Keep a documented coverage gap for UI-only capabilities until inspected. Do not imply that writing GITHUB.md changes GitHub settings.
+## Coverage and applicability
+
+A full setup produces one decision per feature family. For each, record its ID, desired state, observed state, action, permission/plan gate, verification and final state. Expensive or enterprise-only features still receive an explicit entry. Enable applicable features within existing authorization and rights.
+
+The catalog also covers personal, organization and enterprise operations beyond a repository. Determine ownership and authorization before acting. A public repository does not imply organization administration permission.
+
+The REST index comes from GitHub's official OpenAPI description. The GraphQL index comes from live authenticated schema introspection. These schemas can contain deprecated endpoints that are closed or scheduled for closure. Closed endpoints carry unavailable metadata and the executor refuses them. Capabilities may remain behind a plan, preview, GitHub App permission or UI.
+
+Use current official documentation and live schema to settle drift. GitHub Enterprise Server has a versioned surface; compare its schema and docs with the indexed GitHub.com snapshot. No catalog snapshot guarantees future availability.
