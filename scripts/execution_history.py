@@ -48,7 +48,7 @@ def read_events(limit=100):
         raise ValueError("History limit must be nonnegative; 0 returns all events")
     if not DATABASE.exists():
         return []
-    with sqlite3.connect(f"file:{DATABASE}?mode=ro", uri=True, timeout=30) as database:
+    with sqlite3.connect(DATABASE.resolve().as_uri() + "?mode=ro", uri=True, timeout=30) as database:
         rows = database.execute("SELECT sequence,run_id,time,kind,details FROM events ORDER BY sequence DESC LIMIT ?", (limit or -1,)).fetchall()
     return [{"sequence": row[0], "run_id": row[1], "time": row[2], "kind": row[3], "details": json.loads(row[4])} for row in rows]
 
@@ -59,7 +59,7 @@ def verify(run_id, outcome, evidence):
         raise ValueError("Verification requires an evidence link")
     if not DATABASE.exists():
         raise ValueError("Execution run not found")
-    with sqlite3.connect(f"file:{DATABASE}?mode=ro", uri=True, timeout=30) as database:
+    with sqlite3.connect(DATABASE.resolve().as_uri() + "?mode=ro", uri=True, timeout=30) as database:
         exists = database.execute("SELECT 1 FROM events WHERE run_id=? AND kind='started'", (run_id,)).fetchone()
     if not exists:
         raise ValueError("Execution run not found")

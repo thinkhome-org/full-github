@@ -167,6 +167,14 @@ class HistoryTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             execution_history.verify("unknown", "matched", "https://github.com/o/r")
 
+    def test_history_path_special_characters_do_not_change_sqlite_uri(self):
+        special = execution_history.DATABASE.parent / "history#question?.sqlite3"
+        with mock.patch.object(execution_history, "DATABASE", special):
+            run_id = execution_history.start("issues/get", {"method": "GET"}, {})
+            execution_history.finish(run_id, 0)
+            execution_history.verify(run_id, "matched", "https://github.com/o/r/issues/1")
+            self.assertEqual(len(execution_history.read_events(0)), 3)
+
 
 if __name__ == "__main__":
     unittest.main()

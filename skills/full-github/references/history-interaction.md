@@ -51,4 +51,4 @@ Official behavior and community incident reports may differ by date, host and ro
 
 Sources include GitHub's [REST integration practices](https://docs.github.com/en/rest/using-the-rest-api/best-practices-for-using-the-rest-api), [pagination documentation](https://docs.github.com/en/rest/using-the-rest-api/using-pagination-in-the-rest-api), [PR reviews](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/about-pull-request-reviews), [audit log](https://docs.github.com/en/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/reviewing-the-audit-log-for-your-organization) and [artifact attestations](https://docs.github.com/en/actions/concepts/security/artifact-attestations).
 
-This repository enables native release immutability. Future published tags/assets are frozen, and corrections are issued as a new release.
+The Full GitHub plugin repository enables native release immutability. Future published tags/assets are frozen, and corrections are issued as a new release.

@@ -8,7 +8,7 @@ Three domain research agents inspected official documentation and community inci
 
 ### Runtime and regression evidence
 
-- 48 tests cover prior behavior plus full-schema integrity, nested reference traversal, per-capability option coverage, raw evidence retention, capped/absent-Link pagination, incomplete search, local concurrent history writers, privacy boundaries, committed hidden manifests, partial-draft retry and prerelease classification.
+- 49 tests cover prior behavior plus full-schema integrity, nested reference traversal, per-capability option coverage, raw evidence retention, capped/absent-Link pagination, incomplete search, local concurrent history writers, privacy boundaries, committed hidden manifests, partial-draft retry and prerelease classification.
 - A live page-based read requested 101 items from kubernetes/kubernetes and received pages of 100, 100, 16 and 0 items. The collector retained all 216 labels and exhausted continuation instead of treating the first capped response as complete.
 - Actual issue mutation preserved its identity and existing labels, read back the resulting type/labels and appended a separate verification reference to local history.
 - A public welcome Discussion was created and its pinned state verified in the GitHub UI. Question/proposal forms route real human participation into the correct native conversations.
