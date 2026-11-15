@@ -28,4 +28,4 @@ Project https://github.com/orgs/thinkhome-org/projects/5 uses Status options Tod
 
 ## Capability inventory
 
-Keep all 258 capability families and complete API directories current. Each release records source dates, retired endpoints, operation counts and live validation separately. Use scripts/operations.py for exact REST routes and GraphQL input discovery. Registry generation and catalog rendering must remain reproducible.
+Keep all 261 capability families and complete API directories current. Each release records source dates, retired endpoints, operation counts and live validation separately. Use scripts/operations.py for exact REST routes and GraphQL input discovery. Registry generation and catalog rendering must remain reproducible.

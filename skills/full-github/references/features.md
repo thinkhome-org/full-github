@@ -1,6 +1,6 @@
 # Full capability profile
 
-The catalog covers 258 source-backed feature families across collaboration, delivery/security and administration. The operation registry indexes 1,281 published REST operations and the live GraphQL schema, including deprecated and retired entries identified separately. Snapshot date is 2026-11-15.
+The catalog covers 261 source-backed feature families across collaboration, delivery/security and administration. The operation registry indexes 1,281 published REST operations and the live GraphQL schema, including deprecated and retired entries identified separately. Snapshot date is 2026-11-15.
 
 Use the machine-readable catalog through operations.py capabilities or capability ID. Each entry contains operations, access surfaces, official sources, verification and limitations. Read the relevant sections of these references.
 

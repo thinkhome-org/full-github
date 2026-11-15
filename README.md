@@ -8,7 +8,7 @@ A native Codex plugin for discovering, configuring and using GitHub throughout a
 
 ## Coverage
 
-The 2026-11-15 inventory contains **258 capability families**, **1,281 published REST operations**, **32 GraphQL queries**, **285 GraphQL mutations** and **1,881 GraphQL types**. Deprecated and retired operations are identified separately. Eighteen confirmed retired operations are blocked by the REST executor.
+The 2026-11-15 inventory contains **261 capability families**, **1,281 published REST operations**, **32 GraphQL queries**, **285 GraphQL mutations** and **1,881 GraphQL types**. Deprecated and retired operations are identified separately. Eighteen confirmed retired operations are blocked by the REST executor.
 
 - Repository content, Git, Issues, owner issue fields, sub-issues/dependencies, PR stacks, Agent Merge, reviews, rulesets and merge queues.
 - Projects fields/options, table/board/roadmap views, view CRUD, workflows, status updates, templates and Insights.

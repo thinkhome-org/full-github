@@ -7,7 +7,7 @@ Verification date is 2026-11-15 on GitHub.com, repository thinkhome-org/full-git
 ## Inventory evidence
 
 - Three independent research agents performed two completeness passes and inspected collaboration, delivery/security and administration using current official GitHub documentation.
-- The combined catalog contains 258 feature families with operations, interfaces, sources, permissions/plan limits and verification requirements.
+- The combined catalog contains 261 feature families with operations, interfaces, sources, permissions/plan limits and verification requirements.
 - The official OpenAPI snapshot contains 1,281 REST operations across 46 categories. The registry records its source digest and date.
 - Live authenticated GraphQL introspection contains 32 query fields, 285 mutation fields including deprecated entries, and 1,881 schema types.
 - Eighteen confirmed retired REST operations carry closure/replacement metadata and are blocked by the executor.

@@ -4,7 +4,7 @@ The native Codex plugin packages one orchestration skill, domain runbooks, a cap
 
 ## Discovery
 
-The capability catalog records 258 feature families, actual interfaces, official sources, permission/plan gates and verification. The REST registry is generated from GitHub's official OpenAPI description. GraphQL operations and input/result types come from live introspection.
+The capability catalog records 261 feature families, actual interfaces, official sources, permission/plan gates and verification. The REST registry is generated from GitHub's official OpenAPI description. GraphQL operations and input/result types come from live introspection.
 
 operations.py searches and describes exact operations without loading full registries into the model context. The REST executor builds gh argv using encoded path/query parameters and passes payloads through stdin. GraphQL uses native gh with structured variables.
 

@@ -1,6 +1,6 @@
 # GitHub capability directory
 
-Reviewed 2026-11-15. 258 feature families.
+Reviewed 2026-11-15. 261 feature families.
 
 Search using python3 scripts/operations.py capabilities TERM. Inspect a family using capability ID.
 
@@ -215,6 +215,9 @@ Each linked official source defines current permissions, product limits and oper
 | admin-platform-gitignore-templates | GitHub gitignore template catalog | REST API, gh api, Git | [Docs 1](https://docs.github.com/en/rest/gitignore) |
 | admin-platform-emojis | GitHub emoji catalog | REST API, gh api | [Docs 1](https://docs.github.com/en/rest/emojis) |
 | admin-platform-markdown-rendering | GitHub Markdown and GFM rendering utilities | REST API, gh api, GitHub rendered UI | [Docs 1](https://docs.github.com/en/rest/markdown) |
+| admin-github-spark | GitHub Spark app creation, iteration, publishing and data-access controls | GitHub Spark web UI, deployed Spark site, linked Git repository when available | [Docs 1](https://docs.github.com/en/copilot/tutorials/spark/your-first-spark) |
+| admin-copilot-cli-customization | Copilot CLI local sessions, instructions, skills, plugins, hooks, LSP and permission settings | Copilot CLI, Git repository files, user-local CLI configuration, organization/enterprise policy UI | [Docs 1](https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/overview) |
+| admin-copilot-sdk | Copilot SDK application integration, sessions, tools and lifecycle control | Official Copilot SDK, Copilot CLI JSON-RPC runtime, application source and tests | [Docs 1](https://docs.github.com/en/copilot/get-started/sdk-quickstart) |
 
 ## branches-rules
 

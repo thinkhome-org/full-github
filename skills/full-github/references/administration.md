@@ -1730,3 +1730,44 @@ Operations: POST /markdown; POST /markdown/raw; render content using repository 
 
 [Official documentation](https://docs.github.com/en/rest/markdown).
 
+
+## Spark and Copilot client/runtime products
+
+GitHub Models retirement is already covered by `admin-github-models-retired`; these current product surfaces are independent of that retired service. GitHub Mobile uses the existing issue/PR/notification/account capability families and does not need duplicate API coverage.
+
+### GitHub Spark app creation, iteration, publishing and data-access controls
+
+Coverage ID: `admin-github-spark`. Surfaces: GitHub Spark web UI, deployed Spark site, linked Git repository when available.
+
+Operations: inspect an existing spark and its current publication/access state; create/iterate an authorized app through Spark prompts, preview and available editing tools; inspect repository/code linkage where available without assuming a generic Spark REST API; publish an approved version and select private, organization or all-GitHub-users visibility where eligible; set read-only versus write access for shared app data; verify the deployed site.
+
+**Access and limits:** Requires eligible Spark entitlement, enabled account/organization policy and interactive authenticated UI. Publishing is deployment and data exposure, so authorization must cover both visibility and data-write access. All-GitHub-users access is unavailable for managed users. Read-only access differs from private visibility. Review and remove private app data before widening access; do not claim arbitrary Spark lifecycle REST endpoints from the repository API inventory.
+
+**Verification:** Read deployed URL and publication/data-access settings, then verify intended authenticated audience can access the correct version and permitted data operations. Official documentation checked 2026-11-15; no live product mutation test.
+
+[Official documentation](https://docs.github.com/en/copilot/tutorials/spark/your-first-spark).
+
+### Copilot CLI local sessions, instructions, skills, plugins, hooks, LSP and permission settings
+
+Coverage ID: `admin-copilot-cli-customization`. Surfaces: Copilot CLI, Git repository files, user-local CLI configuration, organization/enterprise policy UI.
+
+Operations: inspect installed CLI version/authentication, enabled organization policy and discovered customizations; maintain repository/user instructions and path-specific instruction files without conflicts; configure authorized skills, custom agents, hooks, MCP/LSP servers, plugins and marketplaces; inspect CLI settings, model/provider selection, workspace paths and tool permissions; start/resume authorized sessions and verify loaded customizations and resulting outputs.
+
+**Access and limits:** Copilot CLI entitlement, installed runtime and organization policy apply. Hooks/plugins/tools may execute arbitrary local commands or contact external services; config discovery is not execution authorization. Preserve host approval boundaries and secrets. Client-specific plugin components are not universally portable; consult installed CLI format support. Instructions may require a fresh/resumed session to reload; do not assume Codex skill installation installs a Copilot plugin.
+
+**Verification:** Inspect current CLI help/settings and loaded instructions/plugins, then verify a bounded authorized session uses the intended configuration and retains tool permission controls. Official documentation checked 2026-11-15; no live product mutation test.
+
+[Official documentation](https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/overview).
+
+### Copilot SDK application integration, sessions, tools and lifecycle control
+
+Coverage ID: `admin-copilot-sdk`. Surfaces: Official Copilot SDK, Copilot CLI JSON-RPC runtime, application source and tests.
+
+Operations: inspect supported SDK/runtime and authenticated Copilot CLI connectivity; build authorized applications using session creation/resume, prompt submission, streaming events and cleanup; register custom tools, custom agents, MCP servers, plugin directories and lifecycle hooks; apply permission handlers, workspace scope and allowed tool/resource boundaries; verify errors, cancellation and integration behavior with a bounded test session.
+
+**Access and limits:** Requires supported language runtime, compatible SDK/CLI and authorized Copilot entitlement/authentication. Bundled CLI availability depends on SDK language/version. This is a programmatic agent runtime, not GitHub Models inference or an undocumented REST endpoint. Tool callbacks run application code; permission handlers, provider costs and external data access remain the application owner's responsibility. Do not introduce a new SDK/dependency unless the requested integration needs it.
+
+**Verification:** Verify installed package/runtime versions and authentication without printing credentials; exercise one authorized bounded session, tool result, streaming completion/error path and cleanup. Official documentation checked 2026-11-15; no live product mutation test.
+
+[Official documentation](https://docs.github.com/en/copilot/get-started/sdk-quickstart).
+
