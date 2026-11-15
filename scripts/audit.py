@@ -58,11 +58,13 @@ def read_probe(command, run):
         return {"status": "unknown", "error": str(error)}
 
 
-def audit(repo, run=subprocess.run, organization=False, project=None):
+def audit(repo, run=subprocess.run, organization=False, project=None, issue=None):
     if not re.fullmatch(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", repo) or any(part in (".", "..") for part in repo.split("/")):
         raise ValueError("Expected OWNER/REPO")
     if project is not None and (not isinstance(project, int) or project < 1):
         raise ValueError("Project number must be positive")
+    if issue is not None and (type(issue) is not int or issue < 1):
+        raise ValueError("Issue number must be positive")
     endpoints = {
         "repository": f"repos/{repo}",
         "labels": f"repos/{repo}/labels",
@@ -104,6 +106,41 @@ def audit(repo, run=subprocess.run, organization=False, project=None):
                     if not project_owner or project_owner.get("projectV2") is None:
                         result[key]["status"] = "unknown"
                         result[key]["error"] = "Project is absent or inaccessible"
+    if issue is not None:
+        base = f"repos/{repo}/issues/{issue}"
+        paths = {"issue": "", "issue_comments": "/comments", "issue_timeline": "/timeline",
+                 "issue_sub_issues": "/sub_issues", "issue_parent": "/parent",
+                 "issue_blocked_by": "/dependencies/blocked_by", "issue_blocking": "/dependencies/blocking",
+                 "issue_artifacts": "/artifacts", "issue_fields": "/issue-field-values"}
+        for key, path in paths.items():
+            result[key] = read_probe(["gh", "api", "--paginate", "--slurp", base + path], run)
+        query = ("query($owner:String!,$name:String!,$number:Int!,$endCursor:String){repository(owner:$owner,name:$name){"
+                 "issue(number:$number){projectItems(first:100,after:$endCursor){nodes{id isArchived project{id title url}}"
+                 "pageInfo{hasNextPage endCursor}}}}}")
+        result["issue_projects"] = read_probe(["gh", "api", "graphql", "--paginate", "--slurp", "-f", "query=" + query,
+                                               "-F", "owner=" + owner, "-F", "name=" + repo.split("/")[1],
+                                               "-F", "number=" + str(issue)], run)
+        project_pages = result["issue_projects"].get("pages")
+        try:
+            if not isinstance(project_pages, list) or not project_pages:
+                raise ValueError("Missing project membership pages")
+            for page in project_pages:
+                connection = page["data"]["repository"]["issue"]["projectItems"]
+                if not isinstance(connection["nodes"], list) or not isinstance(connection["pageInfo"]["hasNextPage"], bool):
+                    raise ValueError("Invalid project membership connection")
+        except (TypeError, KeyError, ValueError):
+            result["issue_projects"]["status"] = "unknown"
+            result["issue_projects"]["error"] = "Issue Project membership is absent, inaccessible or malformed"
+        pages = result["issue"].get("pages")
+        if result["issue"]["status"] != "observed" or not isinstance(pages, list) or len(pages) != 1 or not isinstance(pages[0], dict) or pages[0].get("number") != issue:
+            result["issue"]["status"] = "unknown"
+            result["issue_attention"] = ["Issue state could not be read; reconcile permissions before evaluating metadata"]
+        else:
+            item = pages[0]
+            result["issue_attention"] = [key for key in ("type", "labels", "assignees", "milestone") if not item.get(key)]
+            if item.get("comments") == 0:
+                result["issue_attention"].append("conversation")
+        # These are attention prompts, not a universal requirement to invent relationships or dates.
     return result
 
 
@@ -112,9 +149,10 @@ if __name__ == "__main__":
     parser.add_argument("repository")
     parser.add_argument("--organization", action="store_true", help="Also inspect repository owner's organization configuration")
     parser.add_argument("--project", type=int, help="Inspect an owner Project's fields, items and views")
+    parser.add_argument("--issue", type=int, help="Inspect one issue conversation, metadata, relationships and artifacts")
     args = parser.parse_args()
     try:
-        snapshot = audit(args.repository, organization=args.organization, project=args.project)
+        snapshot = audit(args.repository, organization=args.organization, project=args.project, issue=args.issue)
     except (ValueError, subprocess.TimeoutExpired, OSError) as error:
         parser.exit(2, f"{error}\n")
     print(json.dumps(snapshot, indent=2))

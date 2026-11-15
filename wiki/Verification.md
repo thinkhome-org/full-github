@@ -1,5 +1,17 @@
 # Verification record
 
+## Version 0.4.0
+
+The reported conversation gap was reproduced in the live API and browser. All five prior work issues had zero comments. New comments explicitly add retrospective delivery references without recreating a fictional timeline. Current work in issue 14 uses chronological kickoff/findings/review/delivery entries, native children 15/16, a real blocker relationship and attached plan artifact 1. Shared field visibility is preserved.
+
+- The regression suite covers complete/malformed/incomplete ledgers, all catalog IDs, safe evidence links and issue-level inspection with unknown read failures. The final installed count is recorded in the release receipt.
+- The completion gate rejects unfinished or missing decisions. It validates submitted evidence claims, not live truth; no fabricated 261-row repository ledger was created.
+- Issue-level audit reads actual metadata, comments, timeline, parent/children, dependencies, shared fields, artifacts and paginated Project memberships. Attention prompts do not require invented relationships or dates.
+- Native Project README and an actual status update were published and read back. Existing four views and organization-only fields remain intact. Overview now shows native Type, Milestone and public Priority alongside its original fields. Reloading the canonical saved view verified persistence. GraphQL still omits the rendered built-in Type column, so this evidence came from the UI.
+- New issue forms select native Bug/Feature types. Wiki adds Workflow and a useful native footer. Final publication/rendered read-back and immutable release evidence are recorded in the release-specific Wiki receipt.
+
+This is behavioral guidance plus executable acceptance checks when the skill is loaded. Host selection and agent compliance cannot be globally intercepted by a skill. Nested issue-comment threads are not a supported API feature; chronological comments, quote links, Discussion replies and PR review threads remain distinct.
+
 ## Version 0.3.1
 
 Three fresh review agents examined runtime correctness, option/procedure coverage and publication/installation. The runtime reviewer found no actionable defect in the assigned execution/history scope. Twelve concrete review findings were corrected and verified, including two additional portability/policy cases from rechecking the first fixes.

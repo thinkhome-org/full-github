@@ -5,7 +5,7 @@ description: Use GitHub throughout repository setup, audit, development, plannin
 
 # Full GitHub
 
-Use the full profile by default. Start with references/features.md and references/operations.md. The catalog enumerates individual capabilities, their actual operation routes, source documentation, permission gates and required verification.
+Use the full profile by default for every GitHub task, including ongoing work. Start with references/features.md and references/operations.md. Read references/issue-lifecycle.md before tracked work. Do not wait for the user to name missing features. The catalog enumerates individual capabilities, their actual operation routes, source documentation, permission gates and required verification.
 
 ## Discover the complete surface
 
@@ -15,6 +15,14 @@ Use the full profile by default. Start with references/features.md and reference
 4. Run scripts/audit.py OWNER/REPO for repository probes. Add --organization for an organization owner and --project NUMBER for each relevant owner Project. Read failures remain unknown. Use operation discovery to inspect the remaining features, including object-level details, plan-specific and UI-only capabilities.
 5. Maintain one coverage ledger row per applicable capability ID, with desired configuration, observed configuration, action, permission/plan gate, evidence URL/object ID and final state. Use configured, available-unconfigured, unavailable, not-applicable or unknown. Record a concrete reason for each unavailable or inapplicable row. A successful API read is evidence of observation, not configuration correctness.
 6. With agent tools available, delegate independent collaboration, delivery/security and administration discovery to agents. Give each its exact catalog scope and require official sources and evidence. Consolidate their findings and inspect unresolved gaps before finishing.
+
+## Required execution contract
+
+Discovering a capability is not using it. At task start inspect the actual repository and relevant owner objects, then actively reconcile every applicable control. Never silently omit type, structured fields, Project/status, priority, milestone, relationships, development links, conversation, review, documentation or delivery evidence. Preserve explicit reasons where a control does not serve this work. Inspect the rendered repository/issue/Project/Wiki through available browser tools when UI-only settings or observed behavior cannot be established by API; record the exact remaining step if access is unavailable.
+
+For full setup or a full audit, maintain the complete catalog ledger and run `python3 <plugin-root>/scripts/check_completion.py LEDGER.json` before claiming completion. All catalog IDs must occur once with concrete desired/observed/action/gate/evidence and a verified final state. Missing, unknown or available-unconfigured rows fail. Read references/completion.md for the schema. This validates recorded claims; independently inspect the linked live evidence and current policies. A failed gate means unfinished work, not permission to relabel gaps. Continue authorized recovery; report genuine external gates honestly.
+
+For delivery tasks inspect the complete relevant issue lifecycle, update native state and read it back. Run `python3 <plugin-root>/scripts/audit.py OWNER/REPO --issue NUMBER` with applicable `--organization`/`--project` arguments. Resolve attention prompts or explain applicability. Append new comments when work starts, findings/decisions change, review is ready and delivery is verified. Preserve the issue body as scope and acceptance criteria. Never use repeated body/first-comment replacement, `--edit-last`, or shared comment upserts as the progress conversation. Separate workers post independent meaningful comments and link the comment they answer; read back before retrying an uncertain post. See references/issue-lifecycle.md.
 
 ## Full setup
 

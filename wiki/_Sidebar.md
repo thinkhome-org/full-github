@@ -4,6 +4,8 @@
 
 [[Usage]]
 
+[[Workflow]]
+
 [[Capabilities]]
 
 [[Configuration]]

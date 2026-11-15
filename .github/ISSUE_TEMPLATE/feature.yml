@@ -1,6 +1,7 @@
 name: Workflow improvement
 description: Propose a GitHub capability
 labels: [enhancement]
+type: Feature
 body:
   - type: textarea
     id: goal
