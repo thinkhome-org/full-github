@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.0
+
+- Require active feature reconciliation and new chronological issue comments during delivery; preserve descriptions and independent worker comments.
+- Add issue-level audit for metadata, comments, timeline, shared fields, Projects, parent/children, blockers and artifacts.
+- Add a full-catalog completion gate rejecting incomplete, unverified or missing decisions.
+- Document screenshot issue controls, native menu operations and CLI/API/UI fallbacks; assign native types on issue forms.
+- Reconcile real child work, dependency, fields, Project instructions/status updates and Wiki footer/navigation. Preserve restricted field visibility and historical dates.
+
 ## 0.3.1 — 2026-11-15
 
 - Bind packaged and published artifacts to the peeled release-tag commit and protect release tags from update/deletion.

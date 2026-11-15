@@ -28,7 +28,7 @@ Use the repo's branch convention, or codex/<short-task> when none exists. Create
 
 ## Wiki
 
-Enable Wiki only within authorized setup. GitHub may require creating the first page through the UI before its .wiki.git remote exists. Clone https://github.com/OWNER/REPO.wiki.git into a separate temporary directory. Pull before editing. Preserve unrelated pages, commit only intended pages, push, and read the remote back. Keep Home.md and _Sidebar.md navigation valid. Do not claim source files under wiki/ are already published.
+Enable Wiki only within authorized setup. GitHub may require creating the first page through the UI before its .wiki.git remote exists. Clone https://github.com/OWNER/REPO.wiki.git into a separate temporary directory. Pull before editing. Preserve unrelated pages, commit only intended pages, push, and read the remote back. Keep Home.md, _Sidebar.md and _Footer.md navigation valid. Use a useful footer linking contribution/help routes, releases and verification; inspect the rendered result after publication. Do not claim source files under wiki/ are already published.
 
 ## Security and releases
 

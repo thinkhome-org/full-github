@@ -8,6 +8,10 @@ Identify the actual repository and people affected. Read current configuration a
 
 Use the configuration option groups to distinguish provider defaults from a recommendation for this project. Check nested enum, type, required, cardinality and nullable constraints using the full schema inspector and current official documentation. Read operational errata before applying a generated schema literally.
 
+## Conversation is chronological
+
+Follow [issue-lifecycle.md](issue-lifecycle.md). Create new issue comments at material work checkpoints and read back their IDs, authors and content. Body edits maintain the current specification and never replace progress discussion. Parallel workers must not overwrite a shared comment. Quote/link an earlier comment when replying; nested replies belong to Discussions or PR review threads. Keep real final release/verification comments even when automatic PR closure already occurred.
+
 ## Native history
 
 - Git commits, branches, reviews and PR conversations explain implementation and acceptance. Preserve review threads and authorship. Add a comment explaining changed intent instead of replacing the historical discussion.

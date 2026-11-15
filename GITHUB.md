@@ -52,3 +52,12 @@ The release environment permits matching v* tags. Build verifies the tagged comm
 This repository enables native release immutability. Future published tags/assets are frozen, and corrections are issued as a new release.
 
 Release tags matching v* have an active no-bypass ruleset blocking updates and deletion before publication. Packaging checks the peeled local tag against HEAD, and publication compares the artifact comment and peeled remote tag with the build job commit. Reviewed release notes are supplied explicitly. Review pre-existing drafts created outside this workflow for required delivery information before using them; the publisher preserves their existing prose.
+
+
+## Active full-profile delivery
+
+Read skills/full-github/references/issue-lifecycle.md. Append new issue comments for kickoff, material findings/decisions, review and final delivery. A body edit or local journal entry cannot replace that native conversation. Independent workers must not edit a shared first comment. Read back comment IDs and reconcile uncertain posts before retrying.
+
+Native child issues 15/16 decompose work tracked in 14. Use sub-issues for independently accepted work and dependencies for actual ordering. Read native type, labels, assignee, shared values, Project status/priority, milestone and development links. Preserve organization-only issue field visibility and existing Project views. The public Project-local Priority remains visible without exposing restricted owner fields. Start dates are observations; target dates are explicitly best-effort estimates.
+
+Use scripts/audit.py OWNER/REPO --issue NUMBER for issue-level evidence. For full setup/audit use scripts/check_completion.py LEDGER.json with every catalog capability; resolve unfinished rows before claiming full completion. The check validates evidence claims, so linked live state must still be inspected. Ordinary fixes assess all relevant controls without manufacturing irrelevant objects.

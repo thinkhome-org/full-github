@@ -1,3 +1,4 @@
+import json
 import importlib.util
 import subprocess
 import unittest
@@ -72,6 +73,46 @@ class AuditTests(unittest.TestCase):
         result = module.audit("owner/repo", run, organization=True, project=5)
         self.assertEqual(result["project_views"]["status"], "unknown")
         self.assertIn("inaccessible", result["project_views"]["error"])
+
+    def test_issue_audit_reads_conversation_relations_and_metadata(self):
+        calls = []
+        def run(argv, **kwargs):
+            calls.append(argv)
+            if argv[-1] == "repos/owner/repo/issues/7":
+                body = '[{"number":7,"labels":[],"assignees":[],"milestone":null,"type":null,"comments":0}]'
+            else:
+                body = '[[]]'
+            return subprocess.CompletedProcess(argv, 0, body, "")
+        result = module.audit("owner/repo", run, issue=7)
+        for suffix in ("comments", "timeline", "sub_issues", "parent", "dependencies/blocked_by", "dependencies/blocking", "artifacts", "issue-field-values"):
+            self.assertTrue(any(argv[-1].startswith("repos/owner/repo/issues/7/" + suffix) for argv in calls), suffix)
+        self.assertIn("conversation", result["issue_attention"])
+        self.assertIn("type", result["issue_attention"])
+        self.assertIn("milestone", result["issue_attention"])
+        self.assertEqual(result["issue_comments"]["status"], "observed")
+
+    def test_issue_unknown_is_not_reported_as_empty(self):
+        result = module.audit("owner/repo", lambda *a, **k: subprocess.CompletedProcess(a, 1, "", "HTTP403"), issue=7)
+        self.assertEqual(result["issue"]["status"], "unknown")
+        self.assertEqual(result["issue_attention"], ["Issue state could not be read; reconcile permissions before evaluating metadata"])
+
+    def test_issue_malformed_envelope_remains_unknown(self):
+        for body in ('{"message":"bad envelope"}', 'null', '1', '[null]', '[{"message":"bad object"}]'):
+            result = module.audit("owner/repo", lambda *a, **k: subprocess.CompletedProcess(a, 0, body, ""), issue=7)
+            self.assertEqual(result["issue"]["status"], "unknown")
+            self.assertIn("could not be read", result["issue_attention"][0])
+
+    def test_issue_project_null_or_missing_connections_remain_unknown(self):
+        for data in ({"repository":None}, {"repository":{"issue":None}}, {"repository":{"issue":{"projectItems":None}}}, {"repository":{"issue":{"projectItems":{"nodes":[],"pageInfo":{"hasNextPage":False}}}}}):
+            body = json.dumps([{"data": data}])
+            result = module.audit("owner/repo", lambda *a, **k: subprocess.CompletedProcess(a, 0, body, ""), issue=7)
+            expected = "observed" if data.get("repository") and data["repository"].get("issue") and data["repository"]["issue"].get("projectItems") else "unknown"
+            self.assertEqual(result["issue_projects"]["status"], expected)
+
+    def test_invalid_issue_never_executes(self):
+        for issue in (0, -1, True, "1"):
+            with self.assertRaises(ValueError):
+                module.audit("owner/repo", lambda *a, **k: self.fail("executed"), issue=issue)
 
     def test_paginated_response_is_preserved(self):
         def run(argv, **kwargs):

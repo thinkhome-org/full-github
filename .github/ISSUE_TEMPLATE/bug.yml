@@ -1,6 +1,7 @@
 name: Bug
 description: Report a broken GitHub workflow
 labels: [bug]
+type: Bug
 body:
   - type: textarea
     id: expected

@@ -35,3 +35,10 @@ Repository release immutability is enabled for future publications. The native G
 A fresh three-domain review reproduced gaps in publication identity, source portability, generated Wiki checks and configuration guidance. Release refs now prohibit update/deletion through an active no-bypass repository ruleset. The publisher binds ZIP/source/tag identities before creating or resuming a draft and immediately before publishing. The build job passes its peeled checked-out commit explicitly.
 
 Reviewed release notes accompany generated change history on new drafts. Existing human-written draft prose is preserved and requires review if it originated outside this workflow. Marketplace validation checks portable declared sources, identities and supported policy shape. The generated Wiki catalogs share the same rendering/check gate as repository catalogs.
+
+
+## 2026-11-15 — Active use and chronological delivery
+
+Issue 14 supersedes the assumption that catalog support and PR history sufficiently demonstrate actual use. Existing work issues had zero comments. New comments are required at material events; existing descriptions retain current scope. Retrospective delivery links are explicitly dated as new comments rather than invented past dialogue. Native sub-issues 15/16 separate deliverables; 16 depends on accepting the gate in 15.
+
+Full setup/audit claims require the complete ledger gate plus live evidence inspection. A gate validates claims and cannot make source evidence truthful or force unloaded skills. Relevant controls must be actively assessed in ordinary tasks. Organization-only fields retain their access boundaries; public Project Priority remains distinct. Missing arbitrary dates, destructive moderation or unrelated personal/billing objects are not reasons to manufacture state.

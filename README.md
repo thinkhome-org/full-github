@@ -24,6 +24,19 @@ REST execution records append-only local attempt/result events with host and tar
 
 People can use [Q&A](https://github.com/thinkhome-org/full-github/discussions/categories/q-a), [Ideas](https://github.com/thinkhome-org/full-github/discussions/categories/ideas), issue forms and PR reviews. The [pinned welcome discussion](https://github.com/thinkhome-org/full-github/discussions/10) explains participation. See [community workflow](docs/COMMUNITY.md), [changelog](CHANGELOG.md) and [recorded decisions](docs/DECISIONS.md).
 
+## Active use and chronological issues
+
+Full GitHub requires agents using the skill to inspect relevant native controls, reconcile useful features and explain unavailable/inapplicable ones. Progress is posted as new issue comments at material checkpoints. The issue body remains the current specification; parallel workers must not overwrite a shared first comment. Issues use chronological comments and quote links; Discussions and PR reviews provide nested replies.
+
+```sh
+python3 scripts/audit.py thinkhome-org/full-github --organization --project 5 --issue 14
+python3 scripts/check_completion.py coverage-ledger.json
+```
+
+The first command inspects issue metadata, comments, timeline, shared fields, Project membership, parent/children, dependencies and artifacts alongside repository probes. Attention prompts need a real decision, rather than artificial dates or relationships. The second checks every catalog capability for a complete, evidence-linked final decision during full setup/audit; incomplete ledgers fail. It validates submitted claims, so inspect linked live evidence separately. See the [issue lifecycle](skills/full-github/references/issue-lifecycle.md) and [completion contract](skills/full-github/references/completion.md).
+
+The skill provides required behavior and executable checks when loaded. Codex controls skill invocation; a plugin cannot globally intercept unrelated agents or guarantee compliance outside its active workflow.
+
 ## Coverage
 
 The 2026-11-15 inventory contains **261 capability families**, **1,281 published REST operations**, **32 GraphQL queries**, **285 GraphQL mutations** and **1,881 GraphQL types**. The configuration layer contains 459 concrete option decisions across 82 groups. Deprecated and retired operations are identified separately. Eighteen confirmed retired operations are blocked by the REST executor.
