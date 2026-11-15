@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.1 — 2026-11-15
+
+- Bind packaged and published artifacts to the peeled release-tag commit and protect release tags from update/deletion.
+- Validate portable marketplace sources, symlink components, product restrictions and archived plugin identities.
+- Include reviewed installation/verification/limitation notes in automated releases while retaining generated history and existing draft prose.
+- Check generated Wiki catalogs alongside repository documentation.
+- Correct required-check skip semantics and add PR access, signoff, timezone/DST, IP allow-list and Codespaces prebuild guidance.
+
 ## 0.3.0 — 2026-11-15
 
 - Preserve and inspect the complete official REST schema, including nested constraints and source-backed errata.

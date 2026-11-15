@@ -50,3 +50,5 @@ Existing asset bytes and human-added assets are preserved. A mismatch blocks pub
 The release environment permits matching v* tags. Build verifies the tagged commit belongs to main history. The publish job checks transferred checksums before attestation and publication; it does not require a fabricated human reviewer in this single-maintainer setup.
 
 This repository enables native release immutability. Future published tags/assets are frozen, and corrections are issued as a new release.
+
+Release tags matching v* have an active no-bypass ruleset blocking updates and deletion before publication. Packaging checks the peeled local tag against HEAD, and publication compares the artifact comment and peeled remote tag with the build job commit. Reviewed release notes are supplied explicitly. Review pre-existing drafts created outside this workflow for required delivery information before using them; the publisher preserves their existing prose.

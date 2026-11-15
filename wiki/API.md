@@ -113,3 +113,9 @@ call and collect record local attempts and outcomes by default, with host and se
 The repository's tagged release workflow validates source, packages committed hidden manifests, uploads a build artifact, produces a GitHub provenance attestation, resumes a draft release and verifies downloaded asset bytes before publication. Existing differing assets are preserved and block publication. An already-published release is verified without silent repair. RC tags retain prerelease classification.
 
 Use gh attestation verify against this repository after downloading an artifact. Wiki history, issue/PR history, CHANGELOG and recorded decisions preserve the reasons and outcomes around releases.
+
+## Reviewed release identity
+
+package_release.py requires an existing local tag whose peeled commit matches HEAD. publish_release.py requires --expected-commit and --notes-file, checks the ZIP source comment, peels the remote tag and rechecks it before publication. The workflow passes the actual build commit through job outputs. Native no-bypass tag update/deletion protection prevents concurrent ref moves while publication is pending.
+
+New drafts receive reviewed installation, validation and limitation notes together with generated change history. Existing draft prose is preserved. Review pre-existing drafts from another process for those delivery requirements before running publication.

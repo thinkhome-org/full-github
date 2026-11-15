@@ -1,5 +1,16 @@
 # Verification record
 
+## Version 0.3.1
+
+Three fresh review agents examined runtime correctness, option/procedure coverage and publication/installation. The runtime reviewer found no actionable defect in the assigned execution/history scope. Twelve concrete review findings were corrected and verified, including two additional portability/policy cases from rechecking the first fixes.
+
+- 65 tests cover tag/artifact/source mismatch, annotated tags, moved refs during upload, reviewed notes and preservation of existing prose, source/symlink portability, product policy shape and stale Wiki generation alongside prior runtime cases.
+- Registry and generated-document checks cover both docs and Wiki catalogs. Every catalog capability retains concrete option decisions.
+- The active release-tag ruleset blocks update/deletion with no bypass actors; its actual settings were read back.
+- Existing runtime behavior and historical 0.3 evidence remain recorded below.
+
+See [the review record](https://github.com/thinkhome-org/full-github/blob/main/docs/REVIEW-0.3.1.md) for findings, corrections and execution boundaries.
+
 ## Version 0.3.0
 
 The configuration layer now maps every catalog capability to concrete choices and proof requirements. The full original OpenAPI document is preserved and validated against its recorded source digest. Nested references, defaults, enums, required fields, cardinality and response schemas are inspectable. Known current-documentation corrections are attached to operation descriptions.

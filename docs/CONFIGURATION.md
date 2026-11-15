@@ -1,6 +1,6 @@
 # Configuration decisions
 
-Reviewed 2026-11-15. 82 decision groups contain 451 concrete configuration choices covering every catalog capability.
+Reviewed 2026-11-15. 82 decision groups contain 459 concrete configuration choices covering every catalog capability.
 
 Choose settings from the project's actual requirements, observed state, access policy and host version. Record the selected value, rationale, owner, historical evidence and read-back verification. Preserve existing custom settings and identities.
 
@@ -20,6 +20,8 @@ Capabilities repository-lifecycle, repository-branches, repository-autolinks, re
 | description / homepage / topics | text, HTTPS URL, topic list | Use concise purpose and a working primary documentation URL; preserve unrelated topics and owner-defined metadata. | Read metadata and open rendered links; check topic replacement semantics before writing. |
 | autolinks.key_prefix / url_template / is_alphanumeric | tracker prefix, URL with <num>, boolean | Add only for a real external tracker; choose a non-colliding prefix and correct numeric versus alphanumeric matching. | Read rule IDs and test a harmless rendered example without sending a comment. |
 | archived / disabled | repository lifecycle flags | Archive only when work truly ends; do not archive to represent a finished milestone or Project. | Re-read flags, open work and expected read-only behavior; record unarchive recovery path. |
+| has_pull_requests / pull_request_creation_policy | has_pull_requests boolean; documented default true, pull_request_creation_policy: all or collaborators_only | Preserve contribution access unless a restriction is intended. Organization collaborators for this setting have write, maintain or admin access; personal collaborators are invited users. Disabling hides existing PRs rather than deleting them. | Read both settings and intended contributor eligibility; inspect PR visibility. Re-enable to restore existing PR availability; restore prior policy if legitimate contributions are blocked. |
+| web_commit_signoff_required | boolean; documented default false, effective organization policy also applies | Choose only an owner-approved signoff agreement. This adds author signoff to web commits, differs from cryptographic signing, and does not enforce CLI signoffs; CLI authors use --signoff. | Read repository and organization policies; inspect the Sign off and commit changes form and resulting Signed-off-by trailer on an authorized commit. Restore prior setting if misconfigured; retain existing commit history. |
 
 ### Pitfalls
 
@@ -29,6 +31,8 @@ Capabilities repository-lifecycle, repository-branches, repository-autolinks, re
 
 - [Official sources 1](https://docs.github.com/en/rest/repos/repos)
 - [Official sources 2](https://docs.github.com/en/rest/repos/autolinks)
+- [Official sources 3](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/disabling-pull-requests)
+- [Official sources 4](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/managing-repository-settings/managing-the-commit-signoff-policy-for-your-repository)
 
 ## Source changes, history and repository derivation
 
@@ -730,7 +734,7 @@ Capabilities branch-protection, repository-merge-policy.
 | --- | --- | --- | --- |
 | required_pull_request_reviews | required_approving_review_count, dismiss_stale_reviews, require_code_owner_reviews, require_last_push_approval | Choose actual independent reviewer availability; stale/last-push rules must match team workflow. Zero peer approval may be intentional with required checks. | Read effective rules and representative current-head review states; inspect reviewer eligibility and outstanding changes requests. |
 | review dismissal / bypass restrictions | dismissal_restrictions, bypass_pull_request_allowances, users/teams/apps | Retain narrowly justified emergency routes; never add the running agent as bypass to complete setup. | Compare actor IDs and enabled restrictions, and inspect subsequent dismissal/bypass evidence. |
-| required_status_checks | strict, checks context/app_id, legacy contexts | Bind stable check names to expected Apps where supported; strict requires up-to-date branch, queue needs merge_group CI support. | Compare rules to actual check-run names/App IDs on PR and merge-group SHAs; skipped or pending is not passing. |
+| required_status_checks | strict, checks context/app_id, legacy contexts | Bind stable check names to expected Apps where supported; strict requires up-to-date branch, queue needs merge_group CI support. GitHub accepts success, skipped and neutral conclusions; a skipped required job does not prove its validation ran. | Compare rules to check-run names/App IDs and results on the relevant PR/test-merge or merge-group SHA. Whole-workflow filter skips leave checks pending; conditional/dependent job skips can allow merging. Require a terminal aggregate gate that evaluates prerequisite results and fails for missing or failed required validation; verify failure and skip cases before relying on it. |
 | enforce_admins / restrictions | admin enforcement boolean, allowed users/teams/apps, block_creations where supported | Decide administrator policy deliberately; push allowlists are not equivalent to review bypass. Preserve existing emergency ownership. | Read protection and ruleset bypass together; verify effective actor rights without making a disruptive test push. |
 | history / signatures / deletion | require_linear_history, required_signatures, allow_force_pushes, allow_deletions, lock_branch | Match legitimate release workflow and retain no-force/no-delete for protected history unless specifically justified. Locked branches and fork-sync settings need separate intent. | Read all flags and branch status; verify merge methods remain compatible with linear history. |
 | conversation/deployment/security gates | required_conversation_resolution, required deployments, required code/secret/quality rules where supported | Require gates only when their producer/workflow exists and can complete; determine exact environment/tool thresholds from the schema and project policy. | Read named environments/tool thresholds and current-head gate results; do not disable failing gates as recovery. |
@@ -746,6 +750,7 @@ Capabilities branch-protection, repository-merge-policy.
 - [Official sources 1](https://docs.github.com/en/rest/branches/branch-protection)
 - [Official sources 2](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets)
 - [Official sources 3](https://docs.github.com/en/rest/repos/repos)
+- [Official sources 4](https://docs.github.com/en/pull-requests/how-tos/merge-and-close-pull-requests/troubleshooting-required-status-checks)
 
 ## Personal watch choices, inbox triage and feed limitations
 
@@ -974,7 +979,7 @@ Capabilities actions-workflows.
 | --- | --- | --- | --- |
 | on / types | push, pull_request, pull_request_target, merge_group, schedule, workflow_dispatch, repository_dispatch, workflow_run, workflow_call, release; event-specific activity types | Choose the event whose code/ref and trust model match the job. Add merge_group when required checks serve a merge queue. | Exercise intended event; record event, actor, head_sha and workflow revision. |
 | branches / tags / paths | positive/negative glob lists; branches-ignore/tags-ignore/paths-ignore alternatives | Protect required checks against path-filter skips; order negative patterns deliberately; branch and path filters combine. | Test included/excluded branch and file combinations; inspect check state. |
-| schedule | POSIX cron; UTC; default-branch workflow | Use for tolerable delays, with manual recovery; scheduling is not a precise timer. | Compare scheduled event timestamp, branch and actual start. |
+| schedule | POSIX cron; optional on.schedule[].timezone IANA name; UTC default; default-branch workflow; minimum 5-minute interval | Set timezone explicitly when local clock time matters. In DST spring-forward missing hours, execution advances to the next valid time. Use for tolerable delays with manual recovery; scheduling is not a precise timer. | Read cron/timezone from default-branch workflow; compare intended local time, DST transition behavior, scheduled event and actual start. Correct timezone/cron before rerunning missed work with duplicate protection. |
 | workflow_dispatch.inputs | boolean, choice, environment, number, string; required/default/options | Validate enum and deployment target; environment input selects a value but does not gate a job without environment. | Run default and explicit input values; reject invalid target in job. |
 | workflow_run | requested, in_progress, completed; workflows and branches | Treat upstream code/artifacts as untrusted; privileged follow-up must verify origin and SHA. | Read originating run ID, repository, event, conclusion, SHA and artifact provenance. |
 | GITHUB_TOKEN event recursion | Most token-generated events do not launch another workflow; dispatch exceptions exist | Use explicit dispatch for intended chaining, with bounded recursion; do not broaden credentials just to trigger CI. | Match downstream run to dispatch; confirm no duplicate loop. |
@@ -1002,6 +1007,7 @@ Inspect event/ref/filters first; dispatch or rerun the exact intended revision o
 - [Official sources 1](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows)
 - [Official sources 2](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax)
 - [Official sources 3](https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/trigger-a-workflow)
+- [Official sources 4](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#onschedule)
 
 ## Jobs, matrices, conditions and run history
 
@@ -1828,6 +1834,7 @@ Capabilities admin-organization-profile, admin-organization-policy-settings, adm
 | Public identity versus billing contact | name/company/blog/location/public email/description versus billing_email | Publish only owner-approved contact data; billing address stays private. | Inspect public profile signed out and billing contact through owner-only settings. |
 | Invitation and membership | invitation pending/failed; organization role member/admin; member visibility private/public | Invite exact login/email and chosen role; wait for acceptance and required identity setup. Never infer full membership from public members. | Read invitations and authenticated membership; verify access after acceptance. |
 | Outside collaborator conversion/removal | organization member versus outside collaborator; repository role per grant | Inventory team access and owned responsibilities first; explicit offboarding scope includes deploy keys/App access, not just user removal. | Read remaining direct/team/base grants and outstanding invitations after change. |
+| Organization web commit signoff | web_commit_signoff_required boolean; documented default false | Apply an approved signoff agreement to web commits across organization repositories. Distinguish Signed-off-by from verified cryptographic signatures; CLI commits need --signoff. | Read organization and repository effective settings; inspect the web commit form and an authorized resulting trailer. Restore previous policy on error without rewriting earlier commits. |
 
 ### Pitfalls
 
@@ -1840,6 +1847,7 @@ Capabilities admin-organization-profile, admin-organization-policy-settings, adm
 - [Official sources 2](https://docs.github.com/en/organizations/managing-user-access-to-your-organizations-repositories/managing-repository-roles/setting-base-permissions-for-an-organization)
 - [Official sources 3](https://docs.github.com/en/rest/orgs/members)
 - [Official sources 4](https://docs.github.com/en/rest/orgs/outside-collaborators)
+- [Official sources 5](https://docs.github.com/en/organizations/managing-organization-settings/managing-the-commit-signoff-policy-for-your-organization)
 
 ## Nested teams and delegated roles
 
@@ -1884,6 +1892,8 @@ Capabilities admin-identity-policies, admin-organization-audit-and-sso, admin-or
 | Authentication assurance | 2FA required yes/no; allowed 2FA methods per actual host policy; passkeys/security keys/recovery methods | Inventory impacted users and service accounts, notify humans, retain independent recovery methods; enforcement requires access-impact authorization. | Read requirement and member compliance; verify owners retain a tested recovery route. |
 | Verified/approved domains | DNS verification record; verified domain; notification-domain restriction where available | Verify DNS ownership before restricting notifications; record DNS lifecycle owner. | Read verification and send destinations; do not confuse verified domain with automatic SSO provisioning. |
 | Offboarding and recovery | suspend/deprovision; remove membership; revoke SSO credential; revoke token; delete account are distinct | Record actor/subject IDs, teams, grants and recovery constraints; choose reversible suspension when it meets request. | Check effective denial and preserved records; use documented recovery rather than recreating identity blindly. |
+| IP allow-list entries and enforcement | organization/enterprise entries: IP or CIDR, description, enabled; allow-list enabled/disabled; inherited enterprise entries | Enterprise Cloud eligibility required. Inventory automation egress and IPv6, add the current administrator IP/range, and check address admission before enabling. Enforcement starts immediately; organization Codespaces becomes unavailable. Never remove the last working administrative route. | Read entries and inherited policy; use Check IP address before enabling, then verify representative user/App web/API/Git access. Preserve a working authorized admin session for recovery; restore prior entries or disable through that route if access breaks. Changes may take minutes to propagate. |
+| Installed GitHub App IP inheritance | Enable IP allow list configuration for installed GitHub Apps boolean; App-managed entries | Enable only for approved installed Apps. Their registered addresses update automatically and apply to installation traffic, not ordinary users at those IPs. App-managed entries cannot be edited/deleted/disabled individually. | Read inheritance toggle and Managed by App entries, verify the intended installation access and user restrictions. Correct App registration or inheritance policy rather than broadening ordinary user CIDRs; recheck downstream access. |
 
 ### Pitfalls
 
@@ -1896,6 +1906,8 @@ Capabilities admin-identity-policies, admin-organization-audit-and-sso, admin-or
 - [Official sources 2](https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-saml-single-sign-on-for-your-organization/enforcing-saml-single-sign-on-for-your-organization)
 - [Official sources 3](https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/using-saml-for-enterprise-iam/configuring-saml-single-sign-on-for-your-enterprise)
 - [Official sources 4](https://docs.github.com/en/rest/scim)
+- [Official sources 5](https://docs.github.com/en/enterprise-cloud@latest/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/managing-allowed-ip-addresses-for-your-organization)
+- [Official sources 6](https://docs.github.com/en/apps/maintaining-github-apps/managing-allowed-ip-addresses-for-a-github-app)
 
 ## PAT and OAuth lifecycle
 
@@ -2109,6 +2121,9 @@ Capabilities admin-codespaces-lifecycle, admin-codespaces-machines, admin-codesp
 | Retention and lifecycle | default30days retention; stop/start/rebuild/delete; machine selection from available list | Save uncommitted work before destructive deletion/rebuild; stopping compute does not remove storage charges. | Read state, machine and storage; verify committed backup before deletion. |
 | Additional constraints | allowed machine types; base-image restrictions; forwarded-port visibility; max codespaces per user | Configure individual constraints from real eligible plan UI; preserve intended developer functionality. | Create only an authorized bounded sample; verify restrictions and failure message. |
 | Secret scope | organization all/private/selected repositories; repository; user selected repositories; encrypted value | Use narrowest scope and current public key; never log plaintext; explicitly grant needed additional repository access. | List names/scope and test authorized consumer; readback cannot reveal encrypted secret. |
+| Prebuild branch, configuration and triggers | branch plus devcontainer.json; Every push default, On configuration change, Scheduled | Choose actual developer branch/configuration and authorized billing scope. Configuration-change mode watches supported devcontainer/Dockerfile paths and may leave dependencies stale; nested devcontainer changes do not all trigger it. | Read saved branch/configuration/schedule and latest Codespaces Prebuilds run SHA/conclusion; create an authorized sample to confirm Prebuilt codespace found. Correct configuration and rerun before relying on it. |
+| Prebuild regions and template history | all available regions default; selected regions; retained versions 1..5, default 2 | Select used regions and justified history only; every region/version incurs storage charges. Older retained configurations support matching historical revisions. | Read regions/history and expected Prebuild Ready availability for region/configuration. Restore prior settings if intended developers lose coverage; disabling workflow updates leaves existing prebuilds usable and does not delete storage. |
+| Prebuild commands and credential availability | onCreateCommand once per prebuild; updateContentCommand initially and on updates; repository/organization Codespaces secrets; no user secrets during prebuild | Put incremental source builds in updateContentCommand. Grant narrow repository access and credentials; prebuild secrets must not be embedded in resulting reusable files. User secrets become available only after codespace creation. | Read devcontainer commands and secret scope metadata; inspect redacted prebuild logs and an authorized clean codespace. Rotate exposed secrets at provider and replace consumers; fix command/configuration and rebuild affected prebuilds. |
 
 ### Pitfalls
 
@@ -2120,6 +2135,9 @@ Capabilities admin-codespaces-lifecycle, admin-codespaces-machines, admin-codesp
 - [Official sources 2](https://docs.github.com/en/enterprise-cloud@latest/codespaces/troubleshooting/troubleshooting-included-usage)
 - [Official sources 3](https://docs.github.com/en/rest/codespaces/organization-secrets)
 - [Official sources 4](https://docs.github.com/en/rest/codespaces/codespaces)
+- [Official sources 5](https://docs.github.com/en/codespaces/prebuilding-your-codespaces/configuring-prebuilds)
+- [Official sources 6](https://docs.github.com/en/codespaces/prebuilding-your-codespaces/managing-prebuilds)
+- [Official sources 7](https://docs.github.com/en/codespaces/troubleshooting/troubleshooting-prebuilds)
 
 ## Custom properties, issue types and shared fields
 
