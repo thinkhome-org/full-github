@@ -1,0 +1,9 @@
+{
+  "billing/create-organization-budget": [
+    {
+      "checked_on": "2026-11-15",
+      "note": "For budget_scope=user the current endpoint documentation requires an explicit user login even though the stored generated request schema omits that property. Verify the documented scope-specific payload before creation.",
+      "source": "https://docs.github.com/en/rest/billing/budgets#create-a-budget-for-an-organization"
+    }
+  ]
+}

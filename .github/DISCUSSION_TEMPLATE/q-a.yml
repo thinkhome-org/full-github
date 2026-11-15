@@ -1,0 +1,20 @@
+title: "[Question] "
+labels: [question]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: What are you trying to do?
+      description: Include the GitHub feature, desired result and current behavior.
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Plugin version and GitHub host
+      description: Include Codex/gh versions when the question concerns execution.
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Redacted evidence
+      description: Include operation IDs, public links or sanitized errors. Remove credentials and private payloads.

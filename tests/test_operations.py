@@ -9,6 +9,10 @@ import shutil
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import subprocess
 import threading
+import sys
+import tempfile
+
+sys.path.insert(0, str(Path(__file__).parents[1] / "scripts"))
 
 spec = importlib.util.spec_from_file_location("operations", Path(__file__).parents[1] / "scripts/operations.py")
 module = importlib.util.module_from_spec(spec)
@@ -16,6 +20,12 @@ spec.loader.exec_module(module)
 
 
 class OperationTests(unittest.TestCase):
+    def setUp(self):
+        directory = tempfile.TemporaryDirectory()
+        self.addCleanup(directory.cleanup)
+        patch = mock.patch.object(module.execution_history, "DATABASE", Path(directory.name) / "history.sqlite3")
+        patch.start()
+        self.addCleanup(patch.stop)
     @classmethod
     def setUpClass(cls):
         cls.catalog = module.load_catalog()["operations"]
@@ -95,6 +105,14 @@ class OperationTests(unittest.TestCase):
             with contextlib.redirect_stdout(io.StringIO()):
                 self.assertEqual(module.main(), 0)
             run.assert_not_called()
+
+    def test_dry_run_redacts_authentication_headers(self):
+        arguments = ["operations.py", "call", "repos/get", "--params", '{"owner":"o","repo":"r"}', "--dry-run", "--header", "Authorization: Bearer secret-value"]
+        output = io.StringIO()
+        with mock.patch("sys.argv", arguments), contextlib.redirect_stdout(output):
+            self.assertEqual(module.main(), 0)
+        self.assertNotIn("secret-value", output.getvalue())
+        self.assertIn("redacted", output.getvalue())
 
     def test_array_filter_names_match_documented_wire_format(self):
         for name in ("orgs/list-pat-grant-requests", "orgs/list-pat-grants"):

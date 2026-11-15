@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Questions and usage
+    url: https://github.com/thinkhome-org/full-github/discussions/categories/q-a
+    about: Ask questions with the feature, desired result and redacted evidence.
+  - name: Proposals and configuration decisions
+    url: https://github.com/thinkhome-org/full-github/discussions/categories/ideas
+    about: Discuss the workflow and its exact configuration choices.
+  - name: Private security report
+    url: https://github.com/thinkhome-org/full-github/security/advisories/new
+    about: Report vulnerabilities without publishing secrets or private payloads.

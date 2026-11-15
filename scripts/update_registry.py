@@ -2,6 +2,7 @@
 import argparse
 import json
 import hashlib
+import gzip
 from pathlib import Path
 
 parser = argparse.ArgumentParser(description=__doc__)
@@ -23,6 +24,7 @@ def resolve(value):
 
 operations = {}
 data = Path(__file__).resolve().parents[1] / "skills/full-github/data"
+(data / "rest-schema.json.gz").write_bytes(gzip.compress(args.openapi.read_bytes(), mtime=0))
 retired = json.loads((data / "retired-operations.json").read_text())
 for path, item in spec["paths"].items():
     for method, operation in item.items():

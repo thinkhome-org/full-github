@@ -17,3 +17,9 @@ audit.py probes repository/organization settings and paginated Project fields/it
 ## Distribution and maintenance
 
 The Git marketplace installs the versioned plugin into Codex. CI validates tests, manifests, catalog schema and generated documentation. CodeQL scans Python. The Wiki mirrors source-controlled pages. See [[API]] for registry refresh.
+
+## Configuration and execution records
+
+The complete official REST source is stored compressed with a digest. The option layer maps every capability to concrete values and project decision/verification rules, including dated official and community evidence. Source-backed errata remain distinct from the original schema.
+
+The executor journals attempts/results in private local SQLite state and records later verification references separately. Native GitHub records preserve actors, reviews, discussion/Wiki history and publication. Release jobs produce checksums and provenance and resume partial drafts without overwriting asset bytes.

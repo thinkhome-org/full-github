@@ -10,8 +10,8 @@ Use the full profile by default. Start with references/features.md and reference
 ## Discover the complete surface
 
 1. Identify the GitHub host, authenticated identity, repository and owner from Git remotes, gh auth status and repository metadata. Read AGENTS.md, GITHUB.md, existing community files and workflows. Preserve repository-specific choices.
-2. Search the capability catalog with python3 <plugin-root>/scripts/operations.py capabilities TERM. Read the relevant domain reference sections. Resolve plugin-root relative to this skill's ../../ directory. Keep the large JSON registries out of the conversation context.
-3. Use operations.py search TERM, describe OPERATION and type INPUT_TYPE to discover exact current operations. Search with --graphql for GraphQL. Read official endpoint documentation and inspect request schemas before choosing payloads. The indexed API includes deprecated and retired operations, so check their status.
+2. Search the capability catalog with python3 <plugin-root>/scripts/operations.py capabilities TERM. Read the relevant domain reference sections and their collaboration-options.md, delivery-options.md or administration-options.md decision groups. Use operations.py options TERM and option GROUP_ID to inspect concrete values, provider defaults, project decision rules and verification. Resolve plugin-root relative to this skill's ../../ directory. Keep the large JSON registries out of the conversation context.
+3. Use operations.py search TERM, describe OPERATION and type INPUT_TYPE to discover exact current operations. Search with --graphql for GraphQL. Use operations.py schema OPERATION with --section requestBody/responses/parameters and --pointer to inspect complete nested schemas, references, enums, defaults, required fields, cardinality and examples. Read describe operational_notes and current official endpoint documentation before choosing payloads. Generated schemas can lag documented runtime requirements. The indexed API includes deprecated and retired operations, so check their status.
 4. Run scripts/audit.py OWNER/REPO for repository probes. Add --organization for an organization owner and --project NUMBER for each relevant owner Project. Read failures remain unknown. Use operation discovery to inspect the remaining features, including object-level details, plan-specific and UI-only capabilities.
 5. Maintain one coverage ledger row per applicable capability ID, with desired configuration, observed configuration, action, permission/plan gate, evidence URL/object ID and final state. Use configured, available-unconfigured, unavailable, not-applicable or unknown. Record a concrete reason for each unavailable or inapplicable row. A successful API read is evidence of observation, not configuration correctness.
 6. With agent tools available, delegate independent collaboration, delivery/security and administration discovery to agents. Give each its exact catalog scope and require official sources and evidence. Consolidate their findings and inspect unresolved gaps before finishing.
@@ -24,7 +24,9 @@ Respect existing custom content, policies, collaborators, field and option IDs. 
 
 Continue authorized work autonomously. Infer reversible routine choices from the project. Ask only about unresolved material decisions and actions requiring approval under the host's rules, including access expansion, payment commitments and destructive changes. Never grant broader rights or bypass protection to complete setup.
 
-After every mutation read back the object and check the intended configuration, not only HTTP success. Preserve confirmed partial progress. On timeout re-read before retrying. Reconcile again after setup and verify unchanged IDs/counts and preserved custom content. Include a newly-created object and an existing customized object in meaningful reconciliation acceptance tests.
+Read references/history-interaction.md before mutation. Supply the linked GitHub issue/PR/discussion through --context for executor calls. Preserve the native discussion/review chronology, explain superseding decisions and keep local attempt/result events distinct from read-back verification and actual human approvals.
+
+After every mutation read back the object and check the intended configuration, not only HTTP success. Preserve confirmed partial progress. On timeout re-read before retrying. Append verified evidence using verify-event only after observing the resulting GitHub state. Reconcile again after setup and verify unchanged IDs/counts and preserved custom content. Include a newly-created object and an existing customized object in meaningful reconciliation acceptance tests.
 
 ## Repository instructions and documentation
 
@@ -38,10 +40,12 @@ Audit is read-only. Cover individual capabilities, including settings that requi
 
 ## Delivery and maintenance
 
+Use GitHub conversations for genuine human participation. Publish clear question/proposal/bug routes, preserve authors and existing discussion links, request actual authorized reviews and never synthesize a human approval or answer.
+
 Track substantial work through an issue, existing issue type and shared fields, labels, assignee, milestone, Project item and status. Use sub-issues/dependencies where the work requires them. Branch, implement, verify and create a linked PR. Maintain reviews, checks, discussions and Project status throughout delivery. Observe review and merge-queue rules. Verify the resulting commit, closure and automation after merge.
 
 Update affected Wiki/docs and publish a release when the project's policy calls for it. Validate artifact contents and downloaded bytes. Apply relevant deployment environments, approvals, attestations, registry and release immutability policies. Verify deployment/release results. Investigate and fix recoverable failures.
 
 ## Finish with evidence
 
-Recheck all coverage rows. Source-backed support, executable operations, live read validation and live mutation validation are separate evidence levels. State the tested host/date and exact remaining gaps. Never claim all GitHub features were configured from a successful subset, a read-only repeated snapshot or a catalog entry. See references/workflows.md for recovery and authorization boundaries.
+Recheck all coverage rows. Source-backed support, executable operations, live read validation and live mutation validation are separate evidence levels. State the tested host/date and exact remaining gaps. Never claim all GitHub features were configured from a successful subset, a read-only repeated snapshot or a catalog entry. Use collect for page-based inventories, verify counts/termination and respect incomplete_results. A default CLI page or missing Link header cannot establish completeness. Cursor APIs require independently paginating nested connections. See references/workflows.md and references/history-interaction.md for recovery and authorization boundaries.

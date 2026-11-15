@@ -53,6 +53,41 @@ for kind in ("queries", "mutations"):
         lines.append(f"| {name} | {status} |")
     lines.append("")
 outputs[root / "docs/OPERATIONS.md"] = "\n".join(lines) + "\n"
+configuration = json.loads((data / "configuration-options.json").read_text())
+groups = configuration["groups"]
+option_count = sum(len(group["options"]) for group in groups)
+lines = ["# Configuration decisions", "", f"Reviewed {configuration['retrieved']}. {len(groups)} decision groups contain {option_count} concrete configuration choices covering every catalog capability.", "",
+         "Choose settings from the project's actual requirements, observed state, access policy and host version. Record the selected value, rationale, owner, historical evidence and read-back verification. Preserve existing custom settings and identities.", "",
+         "Official documentation establishes current supported behavior. Community links provide incident history and practical pitfalls. Check their date and current applicability before applying a workaround. Full REST schemas and GraphQL input types provide the nested API constraints alongside these decisions.", ""]
+for group in groups:
+    lines.extend([f"## {group.get('title', group['id'])}", "", f"Group ID {group['id']}.", "",
+                  "Capabilities " + ", ".join(group["capability_ids"]) + ".", "",
+                  "| Setting | Values and defaults | Decision rule | Verification |", "| --- | --- | --- | --- |"])
+    for option in group["options"]:
+        values = option["values"]
+        if isinstance(values, list):
+            values = ", ".join(str(value) for value in values)
+        lines.append(f"| {cell(option['name'])} | {cell(values)} | {cell(option['decision_rule'])} | {cell(option['verification'])} |")
+    lines.append("")
+    for key, heading in (("project_applicability", "Project applicability"), ("historical_and_human_interaction", "History and human interaction"), ("recovery", "Recovery"), ("pitfalls", "Pitfalls")):
+        if group.get(key):
+            lines.extend([f"### {heading}", ""])
+            value = group[key]
+            if isinstance(value, list):
+                lines.extend("- " + str(item) for item in value)
+            else:
+                lines.append(str(value))
+            lines.append("")
+    for key, heading in (("sources", "Official sources"), ("community_sources", "Community reports")):
+        if group.get(key):
+            lines.extend([f"### {heading}", ""])
+            for number, source in enumerate(group[key], 1):
+                if isinstance(source, dict):
+                    lines.append(f"- [{cell(source.get('title', heading + ' ' + str(number)))}]({source['url']})")
+                else:
+                    lines.append(f"- [{heading} {number}]({source})")
+            lines.append("")
+outputs[root / "docs/CONFIGURATION.md"] = "\n".join(lines) + "\n"
 for path, content in outputs.items():
     if args.check:
         if not path.exists() or path.read_text() != content:

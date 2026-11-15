@@ -79,3 +79,37 @@ python3 -m unittest discover -s tests -v
 The OpenAPI input is the official document containing paths, components and operationId fields. The GraphQL input contains data.__schema.types with fields, args, inputFields, enumValues and nested type references. Use includeDeprecated on field and enum introspection. The generator derives the full query/mutation index from Query and Mutation types, including deprecated entries. Source digest and retrieval date are recorded for drift verification.
 
 Review new products, endpoints and schema changes against domain references and the capability catalog. Updating the operation registry alone cannot establish that new functionality has been tested.
+
+
+## Inspect nested choices
+
+```sh
+python3 scripts/operations.py options review
+python3 scripts/operations.py option project-event-workflows
+python3 scripts/operations.py schema repos/update --section requestBody --pointer /content/application~1json/schema/properties/allow_squash_merge
+python3 scripts/operations.py schema billing/get-all-budgets-org --section responses --pointer /200/content/application~1json/schema
+```
+
+The full official OpenAPI snapshot is preserved in rest-schema.json.gz. The inspector traverses internal references at each pointer step. Use the document section to inspect components or global metadata. The original digest is validated independently of the compact index. describe also reports known documentation/schema errata.
+
+Configuration groups include concrete values, defaults versus recommendations, decision rules, sources, community incident qualifications and proof. Follow the actual host and current documentation where behavior changed.
+
+## Complete page-based reads
+
+```sh
+python3 scripts/operations.py collect issues/list-labels-for-repo --params '{"owner":"thinkhome-org","repo":"full-github","per_page":5}' --context https://github.com/thinkhome-org/full-github/issues/9
+```
+
+collect reads page/per_page collections from page 1, including APIs with missing Link headers. It follows explicit has_next_page metadata or probes continuation independently of the requested page size. Totals must remain consistent. incomplete_results, repeated pages, count mismatches, parsing and transport failures keep complete false and preserve received pages. Use --items-pointer when a response contains multiple arrays. A failed collection returns nonzero.
+
+Cursor and nested GraphQL connections use their documented pagination protocol. Narrow search scopes to respect provider result limits and historical windows. complete describes exhausted pagination for the observed query; concurrent provider changes still require a stable time scope and reconciliation.
+
+## Execution records
+
+call and collect record local attempts and outcomes by default, with host and selected target metadata. Add --context with an issue, PR or discussion URL. Request/response bodies and header values are excluded. Dry-run redacts authentication headers. Read history and add verify-event only after actual read-back. --no-history supports explicitly ephemeral inspection. See [history and interaction](history-interaction.md).
+
+## Release lifecycle
+
+The repository's tagged release workflow validates source, packages committed hidden manifests, uploads a build artifact, produces a GitHub provenance attestation, resumes a draft release and verifies downloaded asset bytes before publication. Existing differing assets are preserved and block publication. An already-published release is verified without silent repair. RC tags retain prerelease classification.
+
+Use gh attestation verify against this repository after downloading an artifact. Wiki history, issue/PR history, CHANGELOG and recorded decisions preserve the reasons and outcomes around releases.
