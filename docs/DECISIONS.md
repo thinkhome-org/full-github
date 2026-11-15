@@ -29,3 +29,9 @@ Original plugin content awaits a project license choice. Third-party OpenAPI lic
 ## 2026-11-15 — Preserve published release identity
 
 Repository release immutability is enabled for future publications. The native GitHub policy freezes published release tags and asset identities and produces release-level verification evidence. Corrections use a new version instead of replacing published bytes. Draft publication remains resumable; existing historical releases retain their recorded original state. This choice implements the project requirement to preserve history.
+
+## 2026-11-15 — Independent review corrections
+
+A fresh three-domain review reproduced gaps in publication identity, source portability, generated Wiki checks and configuration guidance. Release refs now prohibit update/deletion through an active no-bypass repository ruleset. The publisher binds ZIP/source/tag identities before creating or resuming a draft and immediately before publishing. The build job passes its peeled checked-out commit explicitly.
+
+Reviewed release notes accompany generated change history on new drafts. Existing human-written draft prose is preserved and requires review if it originated outside this workflow. Marketplace validation checks portable declared sources, identities and supported policy shape. The generated Wiki catalogs share the same rendering/check gate as repository catalogs.

@@ -65,11 +65,31 @@
           ],
           "decision_rule": "Archive only when work truly ends; do not archive to represent a finished milestone or Project.",
           "verification": "Re-read flags, open work and expected read-only behavior; record unarchive recovery path."
+        },
+        {
+          "name": "has_pull_requests / pull_request_creation_policy",
+          "values": [
+            "has_pull_requests boolean; documented default true",
+            "pull_request_creation_policy: all or collaborators_only"
+          ],
+          "decision_rule": "Preserve contribution access unless a restriction is intended. Organization collaborators for this setting have write, maintain or admin access; personal collaborators are invited users. Disabling hides existing PRs rather than deleting them.",
+          "verification": "Read both settings and intended contributor eligibility; inspect PR visibility. Re-enable to restore existing PR availability; restore prior policy if legitimate contributions are blocked."
+        },
+        {
+          "name": "web_commit_signoff_required",
+          "values": [
+            "boolean; documented default false",
+            "effective organization policy also applies"
+          ],
+          "decision_rule": "Choose only an owner-approved signoff agreement. This adds author signoff to web commits, differs from cryptographic signing, and does not enforce CLI signoffs; CLI authors use --signoff.",
+          "verification": "Read repository and organization policies; inspect the Sign off and commit changes form and resulting Signed-off-by trailer on an authorized commit. Restore prior setting if misconfigured; retain existing commit history."
         }
       ],
       "sources": [
         "https://docs.github.com/en/rest/repos/repos",
-        "https://docs.github.com/en/rest/repos/autolinks"
+        "https://docs.github.com/en/rest/repos/autolinks",
+        "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/disabling-pull-requests",
+        "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/managing-repository-settings/managing-the-commit-signoff-policy-for-your-repository"
       ],
       "community_sources": [],
       "pitfalls": [
@@ -1415,7 +1435,7 @@
           "verification": "Read workflow trigger/enabled/target and verify a permitted representative transition."
         },
         {
-          "name": "item added \u2192 Status",
+          "name": "item added → Status",
           "values": [
             "disabled",
             "intake/Todo option"
@@ -1424,7 +1444,7 @@
           "verification": "Observe new item value, existing populated item and applicable field default together."
         },
         {
-          "name": "issue/PR closed \u2192 Done",
+          "name": "issue/PR closed → Done",
           "values": [
             "enabled default",
             "disabled",
@@ -1434,7 +1454,7 @@
           "verification": "Check reason and resulting Status for completed and not-planned examples; correct mismatches without reopening rejected work."
         },
         {
-          "name": "PR merged \u2192 Done",
+          "name": "PR merged → Done",
           "values": [
             "enabled default",
             "disabled",
@@ -1444,7 +1464,7 @@
           "verification": "Read merged commit, item Status and downstream release/deployment evidence separately."
         },
         {
-          "name": "Status change \u2192 issue state",
+          "name": "Status change → issue state",
           "values": [
             "disabled",
             "close issue on configured transition where supported"
@@ -1466,7 +1486,7 @@
       ],
       "community_sources": [],
       "pitfalls": [
-        "Initialization enables closed\u2192Done and merged\u2192Done. A successful Status write can be immediately changed by another workflow; verify after automation settles."
+        "Initialization enables closed→Done and merged→Done. A successful Status write can be immediately changed by another workflow; verify after automation settles."
       ]
     },
     {
@@ -1873,7 +1893,7 @@
           "verification": "Read locked/closed/reason and rendered notice; confirm permitted moderators and reactions separately."
         },
         {
-          "name": "issue \u2192 discussion conversion",
+          "name": "issue → discussion conversion",
           "values": [
             "category ID",
             "original issue and resulting discussion IDs"
@@ -2210,8 +2230,8 @@
             "checks context/app_id",
             "legacy contexts"
           ],
-          "decision_rule": "Bind stable check names to expected Apps where supported; strict requires up-to-date branch, queue needs merge_group CI support.",
-          "verification": "Compare rules to actual check-run names/App IDs on PR and merge-group SHAs; skipped or pending is not passing."
+          "decision_rule": "Bind stable check names to expected Apps where supported; strict requires up-to-date branch, queue needs merge_group CI support. GitHub accepts success, skipped and neutral conclusions; a skipped required job does not prove its validation ran.",
+          "verification": "Compare rules to check-run names/App IDs and results on the relevant PR/test-merge or merge-group SHA. Whole-workflow filter skips leave checks pending; conditional/dependent job skips can allow merging. Require a terminal aggregate gate that evaluates prerequisite results and fails for missing or failed required validation; verify failure and skip cases before relying on it."
         },
         {
           "name": "enforce_admins / restrictions",
@@ -2271,7 +2291,8 @@
       "sources": [
         "https://docs.github.com/en/rest/branches/branch-protection",
         "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets",
-        "https://docs.github.com/en/rest/repos/repos"
+        "https://docs.github.com/en/rest/repos/repos",
+        "https://docs.github.com/en/pull-requests/how-tos/merge-and-close-pull-requests/troubleshooting-required-status-checks"
       ],
       "community_sources": [],
       "pitfalls": [
@@ -2286,7 +2307,7 @@
         "activity-events"
       ],
       "title": "Personal watch choices, inbox triage and feed limitations",
-      "applicability": "Only the authenticated user\u2019s authorized personal preferences; repository setup does not authorize following/watching or marking inbox items done.",
+      "applicability": "Only the authenticated user’s authorized personal preferences; repository setup does not authorize following/watching or marking inbox items done.",
       "options": [
         {
           "name": "repository subscription",
@@ -2613,7 +2634,7 @@
           "values": [
             "amount in US dollars",
             "isRecurring boolean",
-            "documented API range 1\u201312000"
+            "documented API range 1–12000"
           ],
           "decision_rule": "Choose explicitly approved price and monthly versus one-time meaning; never confuse dollars with cents or interpret isRecurring as an arbitrary billing scheduler.",
           "verification": "Read amount/currency/recurrence from returned tier and actual checkout; current API schema defines valid range."
@@ -2941,9 +2962,9 @@
         },
         {
           "name": "schedule",
-          "values": "POSIX cron; UTC; default-branch workflow",
-          "decision_rule": "Use for tolerable delays, with manual recovery; scheduling is not a precise timer.",
-          "verification": "Compare scheduled event timestamp, branch and actual start."
+          "values": "POSIX cron; optional on.schedule[].timezone IANA name; UTC default; default-branch workflow; minimum 5-minute interval",
+          "decision_rule": "Set timezone explicitly when local clock time matters. In DST spring-forward missing hours, execution advances to the next valid time. Use for tolerable delays with manual recovery; scheduling is not a precise timer.",
+          "verification": "Read cron/timezone from default-branch workflow; compare intended local time, DST transition behavior, scheduled event and actual start. Correct timezone/cron before rerunning missed work with duplicate protection."
         },
         {
           "name": "workflow_dispatch.inputs",
@@ -2967,7 +2988,8 @@
       "sources": [
         "https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows",
         "https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax",
-        "https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/trigger-a-workflow"
+        "https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/trigger-a-workflow",
+        "https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#onschedule"
       ],
       "community_sources": [],
       "pitfalls": [
@@ -3262,7 +3284,7 @@
         "https://github.com/orgs/community/discussions/206259"
       ],
       "pitfalls": [
-        "2021\u20132025 complaints about a single pending slot do not describe current queue:max behavior; maintainer announced shipping April 17, 2026.",
+        "2021–2025 complaints about a single pending slot do not describe current queue:max behavior; maintainer announced shipping April 17, 2026.",
         "The control-concurrency page contains broad examples implying unconditional cancellation; use its explicit queue/cancel policy definitions."
       ],
       "project_applicability": "CI can cancel outdated branch checks; release and Wiki publication must preserve sequence and existing content.",
@@ -4272,13 +4294,20 @@
           "values": "organization member versus outside collaborator; repository role per grant",
           "decision_rule": "Inventory team access and owned responsibilities first; explicit offboarding scope includes deploy keys/App access, not just user removal.",
           "verification": "Read remaining direct/team/base grants and outstanding invitations after change."
+        },
+        {
+          "name": "Organization web commit signoff",
+          "values": "web_commit_signoff_required boolean; documented default false",
+          "decision_rule": "Apply an approved signoff agreement to web commits across organization repositories. Distinguish Signed-off-by from verified cryptographic signatures; CLI commits need --signoff.",
+          "verification": "Read organization and repository effective settings; inspect the web commit form and an authorized resulting trailer. Restore previous policy on error without rewriting earlier commits."
         }
       ],
       "sources": [
         "https://docs.github.com/en/rest/orgs/orgs",
         "https://docs.github.com/en/organizations/managing-user-access-to-your-organizations-repositories/managing-repository-roles/setting-base-permissions-for-an-organization",
         "https://docs.github.com/en/rest/orgs/members",
-        "https://docs.github.com/en/rest/orgs/outside-collaborators"
+        "https://docs.github.com/en/rest/orgs/outside-collaborators",
+        "https://docs.github.com/en/organizations/managing-organization-settings/managing-the-commit-signoff-policy-for-your-organization"
       ],
       "community_sources": [],
       "pitfalls": [
@@ -4403,13 +4432,27 @@
           "values": "suspend/deprovision; remove membership; revoke SSO credential; revoke token; delete account are distinct",
           "decision_rule": "Record actor/subject IDs, teams, grants and recovery constraints; choose reversible suspension when it meets request.",
           "verification": "Check effective denial and preserved records; use documented recovery rather than recreating identity blindly."
+        },
+        {
+          "name": "IP allow-list entries and enforcement",
+          "values": "organization/enterprise entries: IP or CIDR, description, enabled; allow-list enabled/disabled; inherited enterprise entries",
+          "decision_rule": "Enterprise Cloud eligibility required. Inventory automation egress and IPv6, add the current administrator IP/range, and check address admission before enabling. Enforcement starts immediately; organization Codespaces becomes unavailable. Never remove the last working administrative route.",
+          "verification": "Read entries and inherited policy; use Check IP address before enabling, then verify representative user/App web/API/Git access. Preserve a working authorized admin session for recovery; restore prior entries or disable through that route if access breaks. Changes may take minutes to propagate."
+        },
+        {
+          "name": "Installed GitHub App IP inheritance",
+          "values": "Enable IP allow list configuration for installed GitHub Apps boolean; App-managed entries",
+          "decision_rule": "Enable only for approved installed Apps. Their registered addresses update automatically and apply to installation traffic, not ordinary users at those IPs. App-managed entries cannot be edited/deleted/disabled individually.",
+          "verification": "Read inheritance toggle and Managed by App entries, verify the intended installation access and user restrictions. Correct App registration or inheritance policy rather than broadening ordinary user CIDRs; recheck downstream access."
         }
       ],
       "sources": [
         "https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-saml-single-sign-on-for-your-organization/enabling-and-testing-saml-single-sign-on-for-your-organization",
         "https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-saml-single-sign-on-for-your-organization/enforcing-saml-single-sign-on-for-your-organization",
         "https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/using-saml-for-enterprise-iam/configuring-saml-single-sign-on-for-your-enterprise",
-        "https://docs.github.com/en/rest/scim"
+        "https://docs.github.com/en/rest/scim",
+        "https://docs.github.com/en/enterprise-cloud@latest/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/managing-allowed-ip-addresses-for-your-organization",
+        "https://docs.github.com/en/apps/maintaining-github-apps/managing-allowed-ip-addresses-for-a-github-app"
       ],
       "community_sources": [],
       "pitfalls": [
@@ -4884,13 +4927,34 @@
           "values": "organization all/private/selected repositories; repository; user selected repositories; encrypted value",
           "decision_rule": "Use narrowest scope and current public key; never log plaintext; explicitly grant needed additional repository access.",
           "verification": "List names/scope and test authorized consumer; readback cannot reveal encrypted secret."
+        },
+        {
+          "name": "Prebuild branch, configuration and triggers",
+          "values": "branch plus devcontainer.json; Every push default, On configuration change, Scheduled",
+          "decision_rule": "Choose actual developer branch/configuration and authorized billing scope. Configuration-change mode watches supported devcontainer/Dockerfile paths and may leave dependencies stale; nested devcontainer changes do not all trigger it.",
+          "verification": "Read saved branch/configuration/schedule and latest Codespaces Prebuilds run SHA/conclusion; create an authorized sample to confirm Prebuilt codespace found. Correct configuration and rerun before relying on it."
+        },
+        {
+          "name": "Prebuild regions and template history",
+          "values": "all available regions default; selected regions; retained versions 1..5, default 2",
+          "decision_rule": "Select used regions and justified history only; every region/version incurs storage charges. Older retained configurations support matching historical revisions.",
+          "verification": "Read regions/history and expected Prebuild Ready availability for region/configuration. Restore prior settings if intended developers lose coverage; disabling workflow updates leaves existing prebuilds usable and does not delete storage."
+        },
+        {
+          "name": "Prebuild commands and credential availability",
+          "values": "onCreateCommand once per prebuild; updateContentCommand initially and on updates; repository/organization Codespaces secrets; no user secrets during prebuild",
+          "decision_rule": "Put incremental source builds in updateContentCommand. Grant narrow repository access and credentials; prebuild secrets must not be embedded in resulting reusable files. User secrets become available only after codespace creation.",
+          "verification": "Read devcontainer commands and secret scope metadata; inspect redacted prebuild logs and an authorized clean codespace. Rotate exposed secrets at provider and replace consumers; fix command/configuration and rebuild affected prebuilds."
         }
       ],
       "sources": [
         "https://docs.github.com/en/codespaces/managing-codespaces-for-your-organization/restricting-the-idle-timeout-period",
         "https://docs.github.com/en/enterprise-cloud@latest/codespaces/troubleshooting/troubleshooting-included-usage",
         "https://docs.github.com/en/rest/codespaces/organization-secrets",
-        "https://docs.github.com/en/rest/codespaces/codespaces"
+        "https://docs.github.com/en/rest/codespaces/codespaces",
+        "https://docs.github.com/en/codespaces/prebuilding-your-codespaces/configuring-prebuilds",
+        "https://docs.github.com/en/codespaces/prebuilding-your-codespaces/managing-prebuilds",
+        "https://docs.github.com/en/codespaces/troubleshooting/troubleshooting-prebuilds"
       ],
       "community_sources": [],
       "pitfalls": [

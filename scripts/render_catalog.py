@@ -88,6 +88,9 @@ for group in groups:
                     lines.append(f"- [{heading} {number}]({source})")
             lines.append("")
 outputs[root / "docs/CONFIGURATION.md"] = "\n".join(lines) + "\n"
+outputs[root / "wiki/Capabilities.md"] = outputs[root / "docs/CAPABILITIES.md"].replace(
+    "docs/VERIFICATION.md", "https://github.com/thinkhome-org/full-github/blob/main/docs/VERIFICATION.md")
+outputs[root / "wiki/Configuration.md"] = outputs[root / "docs/CONFIGURATION.md"]
 for path, content in outputs.items():
     if args.check:
         if not path.exists() or path.read_text() != content:

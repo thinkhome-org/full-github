@@ -9,6 +9,27 @@ assert manifest["name"] == "full-github"
 assert (root / manifest["skills"] / "full-github/SKILL.md").is_file()
 marketplace = json.loads((root / ".agents/plugins/marketplace.json").read_text())
 assert marketplace["plugins"][0]["name"] == manifest["name"]
+for plugin in marketplace["plugins"]:
+    source = plugin["source"]
+    assert source["source"] == "local", "This repository publishes local plugin sources"
+    assert isinstance(source["path"], str) and source["path"].startswith("./"), "Plugin source must use a ./ path"
+    assert "\\" not in source["path"], "Plugin source must use portable path separators"
+    component = root
+    for part in (*Path(source["path"]).parts, ".codex-plugin", "plugin.json"):
+        component = component / part
+        assert not component.is_symlink(), f"Symlink in plugin source: {component}"
+        assert component.resolve().is_relative_to(root), "Plugin source escapes the repository"
+    plugin_root = (root / source["path"]).resolve()
+    assert plugin_root.is_relative_to(root), "Plugin source escapes the repository"
+    plugin_manifest = plugin_root / ".codex-plugin/plugin.json"
+    assert plugin_manifest.is_file(), f"Plugin source manifest missing: {plugin_manifest}"
+    assert json.loads(plugin_manifest.read_text())["name"] == plugin["name"], "Plugin source identity does not match marketplace"
+    policy = plugin.get("policy", {})
+    assert policy.get("installation", "AVAILABLE") in ("AVAILABLE", "NOT_AVAILABLE", "INSTALLED_BY_DEFAULT"), "Unsupported installation policy"
+    assert policy.get("authentication", "ON_INSTALL") in ("ON_INSTALL", "ON_USE"), "Unsupported authentication policy"
+    products = policy.get("products")
+    assert products is None or (isinstance(products, list) and all(
+        product in ("chatgpt", "codex", "atlas", "CHATGPT", "CODEX", "ATLAS") for product in products)), "Unsupported product restrictions"
 for reference in ("features.md", "workflows.md", "operations.md", "collaboration.md", "delivery-security.md", "administration.md", "collaboration-options.md", "delivery-options.md", "administration-options.md", "history-interaction.md"):
     assert (root / "skills/full-github/references" / reference).is_file()
 assert (root / "skills/full-github/SKILL.md").read_text().startswith("---\n")
