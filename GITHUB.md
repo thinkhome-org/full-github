@@ -29,3 +29,22 @@ Project https://github.com/orgs/thinkhome-org/projects/5 uses Status options Tod
 ## Capability inventory
 
 Keep all 261 capability families and complete API directories current. Each release records source dates, retired endpoints, operation counts and live validation separately. Use scripts/operations.py for exact REST routes and GraphQL input discovery. Registry generation and catalog rendering must remain reproducible.
+
+
+## Configuration decisions and history
+
+Before changing a feature, read its option group and complete nested schema. Preserve provider defaults separately from this project's chosen policy. Keep the rationale, source dates, affected people and read-back evidence linked from the issue or PR. Record superseding decisions in docs/DECISIONS.md without rewriting earlier reasoning.
+
+Use --context for executor calls and record verify-event after actual read-back. Unknown/interrupted calls require reconciliation before retry. GitHub timelines, review threads, Wiki Git history, immutable published asset bytes and CHANGELOG retain the native history. The local SQLite journal covers this executor's attempts and verification references.
+
+## Human participation
+
+Q&A Discussions handle questions; Ideas handles proposals; issue forms handle reproducible defects; PR review threads handle code/configuration review. Discussion 10 is the pinned entry point. Preserve authors, comments and source links during transfers/conversions. Required human approvals must come from eligible actual reviewers. A local event or automated self-review cannot replace one.
+
+## Tagged publication
+
+Push the matching v-prefixed tag only after checks pass and the reviewed source is on main. The Release workflow builds the ZIP, verifies hidden manifests, passes it as a workflow artifact, creates a provenance attestation and publishes through a resumable draft.
+
+Existing asset bytes and human-added assets are preserved. A mismatch blocks publication and requires investigation. RC tags remain prereleases. Download the final ZIP/checksum and run gh attestation verify against this repository before declaring a release verified.
+
+The release environment permits matching v* tags. Build verifies the tagged commit belongs to main history. The publish job checks transferred checksums before attestation and publication; it does not require a fabricated human reviewer in this single-maintainer setup.

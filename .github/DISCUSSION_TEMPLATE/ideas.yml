@@ -1,0 +1,22 @@
+title: "[Idea] "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Desired user outcome
+      description: Explain the workflow and the configuration choices it needs.
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: Current behavior and proposed change
+      description: Include existing capability or option IDs when known.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Sources and acceptance evidence
+      description: Link official documentation or a community incident and describe how the result can be verified.

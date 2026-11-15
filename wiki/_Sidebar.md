@@ -6,7 +6,13 @@
 
 [[Capabilities]]
 
+[[Configuration]]
+
 [[API]]
+
+[[History]]
+
+[[Community]]
 
 [[Architecture]]
 

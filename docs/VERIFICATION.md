@@ -1,5 +1,26 @@
 # Verification record
 
+## Version 0.3.0
+
+The configuration layer now maps every catalog capability to concrete choices and proof requirements. The full original OpenAPI document is preserved and validated against its recorded source digest. Nested references, defaults, enums, required fields, cardinality and response schemas are inspectable. Known current-documentation corrections are attached to operation descriptions.
+
+Three domain research agents inspected official documentation and community incidents. The consolidated decision groups retain source distinctions and historical interpretation. CI rejects capabilities without mapped concrete option rules.
+
+### Runtime and regression evidence
+
+- 48 tests cover prior behavior plus full-schema integrity, nested reference traversal, per-capability option coverage, raw evidence retention, capped/absent-Link pagination, incomplete search, local concurrent history writers, privacy boundaries, committed hidden manifests, partial-draft retry and prerelease classification.
+- A live page-based read requested 101 items from kubernetes/kubernetes and received pages of 100, 100, 16 and 0 items. The collector retained all 216 labels and exhausted continuation instead of treating the first capped response as complete.
+- Actual issue mutation preserved its identity and existing labels, read back the resulting type/labels and appended a separate verification reference to local history.
+- A public welcome Discussion was created and its pinned state verified in the GitHub UI. Question/proposal forms route real human participation into the correct native conversations.
+- Independent runtime review found four defects in collection/publication edge cases. Regression tests now cover page-size caps, incomplete_results, raw-page preservation and RC prerelease state.
+- The release environment was created and its v* tag policy read back. Tagged publication checks main ancestry and transferred checksums and uses a separate scoped GitHub Actions job, validated hidden manifests, SHA-256 checksums, provenance generation and byte-verified resumable drafts. Final release verification includes downloading the published artifact and gh attestation verify.
+
+### Evidence boundaries
+
+The local journal records executor attempts and caller-supplied read-back claims. It excludes bodies/header values and does not replace authenticated GitHub actors, audit records or required human approvals. No independent human approval is fabricated in the single-maintainer project.
+
+The full schema and option decisions describe supported configurations and current source evidence. Actual entitlement, effective access and tenant-specific mutations still depend on the target host and credentials. Preserved historical failures below remain visible.
+
 ## Version 0.2.1
 
 Verification date is 2026-11-15 on GitHub.com, repository thinkhome-org/full-github and organization Project 5.

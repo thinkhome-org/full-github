@@ -1,6 +1,6 @@
 {
   "name": "full-github",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Source-backed GitHub capability discovery and execution for Codex, including repository, organization and enterprise workflows.",
   "author": {
     "name": "ThinkHome",

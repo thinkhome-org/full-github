@@ -6,9 +6,27 @@
 
 A native Codex plugin for discovering, configuring and using GitHub throughout a project's life. Published by ThinkHome.
 
+## Configuration, history and people
+
+Use the [configuration decisions](docs/CONFIGURATION.md) to choose settings inside each feature. Every catalog capability maps to concrete options, provider defaults, project-specific decision rules, sources and verification. The full official REST schema is bundled with nested properties, enums, defaults, required fields, limits and response definitions.
+
+```sh
+python3 scripts/operations.py options review
+python3 scripts/operations.py option project-event-workflows
+python3 scripts/operations.py schema repos/update --section requestBody --pointer /content/application~1json/schema/properties/allow_squash_merge
+python3 scripts/operations.py collect issues/list-labels-for-repo --params '{"owner":"thinkhome-org","repo":"full-github","per_page":5}'
+python3 scripts/operations.py history --limit 100
+```
+
+Page-based collection verifies continuation and totals and keeps received evidence on failure. It detects incomplete search results and avoids assuming the server honored the requested page size.
+
+REST execution records append-only local attempt/result events with host and target metadata. Add --context with an issue/PR/discussion link. Read back the actual state, then record verify-event with its evidence. Payloads and header values are excluded. See the [history guide](skills/full-github/references/history-interaction.md).
+
+People can use [Q&A](https://github.com/thinkhome-org/full-github/discussions/categories/q-a), [Ideas](https://github.com/thinkhome-org/full-github/discussions/categories/ideas), issue forms and PR reviews. The [pinned welcome discussion](https://github.com/thinkhome-org/full-github/discussions/10) explains participation. See [community workflow](docs/COMMUNITY.md), [changelog](CHANGELOG.md) and [recorded decisions](docs/DECISIONS.md).
+
 ## Coverage
 
-The 2026-11-15 inventory contains **261 capability families**, **1,281 published REST operations**, **32 GraphQL queries**, **285 GraphQL mutations** and **1,881 GraphQL types**. Deprecated and retired operations are identified separately. Eighteen confirmed retired operations are blocked by the REST executor.
+The 2026-11-15 inventory contains **261 capability families**, **1,281 published REST operations**, **32 GraphQL queries**, **285 GraphQL mutations** and **1,881 GraphQL types**. The configuration layer contains 451 concrete option decisions across 82 groups. Deprecated and retired operations are identified separately. Eighteen confirmed retired operations are blocked by the REST executor.
 
 - Repository content, Git, Issues, owner issue fields, sub-issues/dependencies, PR stacks, Agent Merge, reviews, rulesets and merge queues.
 - Projects fields/options, table/board/roadmap views, view CRUD, workflows, status updates, templates and Insights.
@@ -52,7 +70,7 @@ python3 scripts/operations.py type UpdateProjectV2ViewInput
 python3 scripts/audit.py thinkhome-org/full-github --organization --project 5
 ```
 
-REST call executes the selected operation using the current gh identity, including writes. Use describe to inspect the method, parameters and official documentation. Supply request bodies through --body-file and preview with --dry-run. GraphQL operations use native gh api graphql with structured variables.
+REST call executes the selected operation using the current gh identity, including writes, and records local execution history by default. Use describe to inspect the method, parameters and official documentation. Supply request bodies through --body-file and preview with --dry-run. GraphQL operations use native gh api graphql with structured variables.
 
 The expanded audit performs repository/organization probes and paginated Project reads. Failed reads remain unknown. It inspects classic branch protection separately from rulesets. Feature-specific object inspection and UI verification complete the coverage ledger.
 
@@ -65,6 +83,8 @@ python3 -m unittest discover -s tests -v
 python3 scripts/validate.py
 python3 scripts/render_catalog.py --check
 ```
+
+Tagged releases are built and published by GitHub Actions, with hidden-manifest validation, SHA-256 checksums and GitHub provenance attestations. Verify downloaded ZIPs using gh attestation verify --repo thinkhome-org/full-github PATH.
 
 The source-backed inventory and executable API routes cover a wider surface than the live mutation tests. Plan, credentials, organization policies and host versions determine which operations can execute. The registries identify deprecated and known retired routes. See the verification record for tested operations and unresolved access gates.
 

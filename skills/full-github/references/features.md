@@ -20,3 +20,7 @@ The catalog also covers personal, organization and enterprise operations beyond 
 The REST index comes from GitHub's official OpenAPI description. The GraphQL index comes from live authenticated schema introspection. These schemas can contain deprecated endpoints that are closed or scheduled for closure. Closed endpoints carry unavailable metadata and the executor refuses them. Capabilities may remain behind a plan, preview, GitHub App permission or UI.
 
 Use current official documentation and live schema to settle drift. GitHub Enterprise Server has a versioned surface; compare its schema and docs with the indexed GitHub.com snapshot. No catalog snapshot guarantees future availability.
+
+## Nested configuration and history
+
+Every capability maps to concrete configuration decisions in data/configuration-options.json. Use options/option for choices and their verification. The complete compressed official REST schema preserves every published nested request/response definition, and schema traverses references. Read source-backed API errata, the domain option references and history-interaction.md before applying changes.

@@ -19,3 +19,7 @@ Ask to deliver an issue and maintain its Project, reviews, Wiki and release. The
 Use scripts/operations.py capabilities TERM, search TERM, describe OPERATION and type GRAPHQL_TYPE. [[API]] contains executable examples and registry maintenance instructions.
 
 Full setup records each feature's configuration, applicability, access gate and evidence in GITHUB.md and its coverage ledger. Installation alone does not prove that all capabilities were configured.
+
+## Nested settings and history
+
+Use [[Configuration]] and the options/option/schema commands to choose actual settings. Follow [[History]] for linked decisions and execution records. The collect command checks page-based continuation and preserves partial evidence when an inventory is incomplete. [[Community]] explains how people participate through native GitHub conversations.
