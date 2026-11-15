@@ -4,6 +4,10 @@
 
 [[Usage]]
 
+[[Capabilities]]
+
+[[API]]
+
 [[Architecture]]
 
 [[Permissions]]

@@ -1,0 +1,74 @@
+{
+  "classroom/get-an-assignment": {
+    "reason": "Closed on 2026-08-28; current official OpenAPI description explicitly states operation is no longer available.",
+    "source": "https://docs.github.com/rest/classroom/classroom#closed---get-an-assignment"
+  },
+  "classroom/list-accepted-assignments-for-an-assignment": {
+    "reason": "Closed on 2026-08-28; current official OpenAPI description explicitly states operation is no longer available.",
+    "source": "https://docs.github.com/rest/classroom/classroom#closed---list-accepted-assignments-for-an-assignment"
+  },
+  "classroom/get-assignment-grades": {
+    "reason": "Closed on 2026-08-28; current official OpenAPI description explicitly states operation is no longer available.",
+    "source": "https://docs.github.com/rest/classroom/classroom#closed---get-assignment-grades"
+  },
+  "classroom/list-classrooms": {
+    "reason": "Closed on 2026-08-28; current official OpenAPI description explicitly states operation is no longer available.",
+    "source": "https://docs.github.com/rest/classroom/classroom#closed---list-classrooms"
+  },
+  "classroom/get-a-classroom": {
+    "reason": "Closed on 2026-08-28; current official OpenAPI description explicitly states operation is no longer available.",
+    "source": "https://docs.github.com/rest/classroom/classroom#closed---get-a-classroom"
+  },
+  "classroom/list-assignments-for-a-classroom": {
+    "reason": "Closed on 2026-08-28; current official OpenAPI description explicitly states operation is no longer available.",
+    "source": "https://docs.github.com/rest/classroom/classroom#closed---list-assignments-for-a-classroom"
+  },
+  "migrations/get-import-status": {
+    "reason": "Closed on 2024-04-12 at 00:00 UTC; current official OpenAPI description explicitly states endpoint is no longer available.",
+    "source": "https://docs.github.com/rest/migrations/source-imports#get-an-import-status"
+  },
+  "migrations/start-import": {
+    "reason": "Closed on 2024-04-12 at 00:00 UTC; current official OpenAPI description explicitly states endpoint is no longer available.",
+    "source": "https://docs.github.com/rest/migrations/source-imports#start-an-import"
+  },
+  "migrations/update-import": {
+    "reason": "Closed on 2024-04-12 at 00:00 UTC; current official OpenAPI description explicitly states endpoint is no longer available.",
+    "source": "https://docs.github.com/rest/migrations/source-imports#update-an-import"
+  },
+  "migrations/cancel-import": {
+    "reason": "Closed on 2024-04-12 at 00:00 UTC; current official OpenAPI description explicitly states endpoint is no longer available.",
+    "source": "https://docs.github.com/rest/migrations/source-imports#cancel-an-import"
+  },
+  "migrations/get-commit-authors": {
+    "reason": "Closed on 2024-04-12 at 00:00 UTC; current official OpenAPI description explicitly states endpoint is no longer available.",
+    "source": "https://docs.github.com/rest/migrations/source-imports#get-commit-authors"
+  },
+  "migrations/map-commit-author": {
+    "reason": "Closed on 2024-04-12 at 00:00 UTC; current official OpenAPI description explicitly states endpoint is no longer available.",
+    "source": "https://docs.github.com/rest/migrations/source-imports#map-a-commit-author"
+  },
+  "migrations/get-large-files": {
+    "reason": "Closed on 2024-04-12 at 00:00 UTC; current official OpenAPI description explicitly states endpoint is no longer available.",
+    "source": "https://docs.github.com/rest/migrations/source-imports#get-large-files"
+  },
+  "migrations/set-lfs-preference": {
+    "reason": "Closed on 2024-04-12 at 00:00 UTC; current official OpenAPI description explicitly states endpoint is no longer available.",
+    "source": "https://docs.github.com/rest/migrations/source-imports#update-git-lfs-preference"
+  },
+  "orgs/list-security-manager-teams": {
+    "reason": "Retirement begins 2026-01-01 according to the official closing-down notice; use Organization Roles endpoints instead. Treat this past-date legacy endpoint as retired rather than a current executable capability.",
+    "source": "https://docs.github.com/rest/orgs/security-managers#list-security-manager-teams"
+  },
+  "orgs/add-security-manager-team": {
+    "reason": "Retirement begins 2026-01-01 according to the official closing-down notice; use Organization Roles endpoints instead. Treat this past-date legacy endpoint as retired rather than a current executable capability.",
+    "source": "https://docs.github.com/rest/orgs/security-managers#add-a-security-manager-team"
+  },
+  "orgs/remove-security-manager-team": {
+    "reason": "Retirement begins 2026-01-01 according to the official closing-down notice; use Organization Roles endpoints instead. Treat this past-date legacy endpoint as retired rather than a current executable capability.",
+    "source": "https://docs.github.com/rest/orgs/security-managers#remove-a-security-manager-team"
+  },
+  "dependency-graph/export-sbom": {
+    "reason": "Closed after 2026-11-13 according to the official endpoint notice. Use asynchronous SBOM generation request and retrieval endpoints instead.",
+    "source": "https://docs.github.com/rest/dependency-graph/sboms#export-a-software-bill-of-materials-sbom-for-a-repository"
+  }
+}

@@ -1,46 +1,73 @@
 # Full GitHub
 
 [![Checks](https://github.com/thinkhome-org/full-github/actions/workflows/check.yml/badge.svg)](https://github.com/thinkhome-org/full-github/actions/workflows/check.yml)
+[![CodeQL](https://github.com/thinkhome-org/full-github/actions/workflows/security.yml/badge.svg)](https://github.com/thinkhome-org/full-github/actions/workflows/security.yml)
 [![Release](https://img.shields.io/github/v/release/thinkhome-org/full-github)](https://github.com/thinkhome-org/full-github/releases)
 
-A native Codex plugin for using GitHub throughout repository setup, development and maintenance. Published by ThinkHome.
+A native Codex plugin for discovering, configuring and using GitHub throughout a project's life. Published by ThinkHome.
+
+## Coverage
+
+The 2026-11-15 inventory contains **258 capability families**, **1,281 published REST operations**, **32 GraphQL queries**, **285 GraphQL mutations** and **1,881 GraphQL types**. Deprecated and retired operations are identified separately. Eighteen confirmed retired operations are blocked by the REST executor.
+
+- Repository content, Git, Issues, owner issue fields, sub-issues/dependencies, PR stacks, Agent Merge, reviews, rulesets and merge queues.
+- Projects fields/options, table/board/roadmap views, view CRUD, workflows, status updates, templates and Insights.
+- Discussions, Wiki, search, notifications and collaboration.
+- Actions policies, runs, jobs, logs, artifacts, caches, concurrency, runners, environments, approvals, secrets/variables and OIDC.
+- Code scanning/quality, Dependabot/dependency graph, secret scanning, security advisories, campaigns and organizational security.
+- Releases, assets, attestations, Packages, Pages and deployments.
+- Organization/enterprise roles, membership, teams, apps, webhooks, audit, billing, properties, migrations, Codespaces/LFS, Copilot/Spaces, agents/tasks/automations and credentials.
+
+Browse the [capability directory](docs/CAPABILITIES.md) and [complete operation directory](docs/OPERATIONS.md). Each capability has operations, interfaces, official sources, permission gates and verification criteria in the bundled catalog. See [verification](docs/VERIFICATION.md) for executed checks.
 
 ## Install
 
-Requires Codex with plugin support, Python 3, Git and authenticated GitHub CLI.
+Requires Codex with plugin support, Python 3.10 or newer, Git and authenticated GitHub CLI.
 
 ```sh
 codex plugin marketplace add thinkhome-org/full-github
 codex plugin add full-github@thinkhome
 ```
 
-Open a new Codex chat in your repository and select Full GitHub.
+For an existing installation, run codex plugin marketplace upgrade thinkhome, then codex plugin add full-github@thinkhome. Open a new Codex chat in your repository and select Full GitHub.
 
-## Use
+## Use from Codex
 
-- “Audit this repository with Full GitHub.” performs a read-only review.
-- “Set up this repository using the full profile.” reconciles settings and records repository-specific decisions.
-- “Deliver this issue and update its Project and Wiki.” keeps planning and documentation connected to the implementation.
+- “Audit this repository with Full GitHub and cover every capability.”
+- “Set up this repository using the full profile, preserving existing content.”
+- “Deliver this issue and maintain its Project, reviews, Wiki and release.”
+- “Inspect organization capabilities and report which permissions are missing.”
 
-The full profile covers Issues, Projects, branches, pull requests, Actions, security, documentation, Wiki and releases. Packages, Pages and hooks are evaluated for applicability. The agent uses existing GitHub access and asks for unresolved material decisions.
+The agent discovers individual capabilities and uses existing gh, Git, connectors and UI tools. Full setup evaluates the entire catalog and records explicit configuration, applicability and permission evidence. Repository-specific instructions are maintained in GITHUB.md linked from AGENTS.md. Skill selection and automatic invocation depend on the Codex host.
 
-This is a skills plugin. Codex executes the workflow through gh, Git and available UI tools. Repository rules become discoverable through GITHUB.md linked from AGENTS.md. Automatic invocation depends on the host and selected skills.
-
-## Read-only snapshot
+## Discover and execute exact operations
 
 ```sh
-python3 scripts/audit.py thinkhome-org/full-github
-python3 -m unittest discover -s tests -v
+python3 scripts/operations.py capabilities projects
+python3 scripts/operations.py search issue-field
+python3 scripts/operations.py describe repos/get
+python3 scripts/operations.py call repos/get --params '{"owner":"thinkhome-org","repo":"full-github"}'
+python3 scripts/operations.py search ProjectV2 --graphql
+python3 scripts/operations.py type UpdateProjectV2ViewInput
+python3 scripts/audit.py thinkhome-org/full-github --organization --project 5
 ```
 
-Failed reads appear as unknown. The snapshot supplies evidence for the wider skill audit and covers repository settings, labels, milestones, rulesets, workflows, releases and community files.
+REST call executes the selected operation using the current gh identity, including writes. Use describe to inspect the method, parameters and official documentation. Supply request bodies through --body-file and preview with --dry-run. GraphQL operations use native gh api graphql with structured variables.
 
-See the [Wiki](https://github.com/thinkhome-org/full-github/wiki), [coverage reference](skills/full-github/references/features.md), [contribution guide](CONTRIBUTING.md) and [repository workflow](GITHUB.md).
+The expanded audit performs repository/organization probes and paginated Project reads. Failed reads remain unknown. It inspects classic branch protection separately from rulesets. Feature-specific object inspection and UI verification complete the coverage ledger.
 
-## Status
+## Documentation and development
 
-Version 0.1 is an initial public release. UI-only Projects configuration requires computer access. GitHub permissions and subscription features vary. See [Wiki verification](https://github.com/thinkhome-org/full-github/wiki/Verification) for tested capabilities and outstanding limitations.
+Use the [Wiki](https://github.com/thinkhome-org/full-github/wiki), [execution guide](skills/full-github/references/operations.md), [contribution guide](CONTRIBUTING.md) and [repository workflow](GITHUB.md).
+
+```sh
+python3 -m unittest discover -s tests -v
+python3 scripts/validate.py
+python3 scripts/render_catalog.py --check
+```
+
+The source-backed inventory and executable API routes cover a wider surface than the live mutation tests. Plan, credentials, organization policies and host versions determine which operations can execute. The registries identify deprecated and known retired routes. See the verification record for tested operations and unresolved access gates.
 
 ## License
 
-A license has not yet been selected by the owner. Contact ThinkHome before redistribution beyond rights granted by GitHub's terms.
+The project owner has not selected a license for original plugin content. Third-party OpenAPI data is covered by the MIT notice in [NOTICE.md](NOTICE.md). Contact ThinkHome before redistribution beyond rights granted by GitHub's terms.
