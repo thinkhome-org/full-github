@@ -48,3 +48,5 @@ Push the matching v-prefixed tag only after checks pass and the reviewed source 
 Existing asset bytes and human-added assets are preserved. A mismatch blocks publication and requires investigation. RC tags remain prereleases. Download the final ZIP/checksum and run gh attestation verify against this repository before declaring a release verified.
 
 The release environment permits matching v* tags. Build verifies the tagged commit belongs to main history. The publish job checks transferred checksums before attestation and publication; it does not require a fabricated human reviewer in this single-maintainer setup.
+
+This repository enables native release immutability. Future published tags/assets are frozen, and corrections are issued as a new release.

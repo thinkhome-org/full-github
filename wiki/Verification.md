@@ -13,6 +13,7 @@ Three domain research agents inspected official documentation and community inci
 - Actual issue mutation preserved its identity and existing labels, read back the resulting type/labels and appended a separate verification reference to local history.
 - A public welcome Discussion was created and its pinned state verified in the GitHub UI. Question/proposal forms route real human participation into the correct native conversations.
 - Independent runtime review found four defects in collection/publication edge cases. Regression tests now cover page-size caps, incomplete_results, raw-page preservation and RC prerelease state.
+- Native repository release immutability was enabled and read back for future publications.
 - The release environment was created and its v* tag policy read back. Tagged publication checks main ancestry and transferred checksums and uses a separate scoped GitHub Actions job, validated hidden manifests, SHA-256 checksums, provenance generation and byte-verified resumable drafts. Final release verification includes downloading the published artifact and gh attestation verify.
 
 ### Evidence boundaries

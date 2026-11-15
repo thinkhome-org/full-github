@@ -25,3 +25,7 @@ Tagged publication uses read-only build permissions and a separate scoped public
 ## Open owner decision
 
 Original plugin content awaits a project license choice. Third-party OpenAPI licensing is preserved in NOTICE.md. Account/organization permissions and subscription entitlements are evaluated on the target host without silently broadening access or committing spending.
+
+## 2026-11-15 — Preserve published release identity
+
+Repository release immutability is enabled for future publications. The native GitHub policy freezes published release tags and asset identities and produces release-level verification evidence. Corrections use a new version instead of replacing published bytes. Draft publication remains resumable; existing historical releases retain their recorded original state. This choice implements the project requirement to preserve history.
