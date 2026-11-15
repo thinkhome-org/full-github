@@ -36,6 +36,12 @@ Read references/history-interaction.md before mutation. Supply the linked GitHub
 
 After every mutation read back the object and check the intended configuration, not only HTTP success. Preserve confirmed partial progress. On timeout re-read before retrying. Append verified evidence using verify-event only after observing the resulting GitHub state. Reconcile again after setup and verify unchanged IDs/counts and preserved custom content. Include a newly-created object and an existing customized object in meaningful reconciliation acceptance tests.
 
+## Required GitHub writing behavior
+
+Read references/markdown.md and `operations.py option github-writing` before composing substantial GitHub content. Actively choose useful formatting for the actual audience/surface: headings/navigation, tables for comparable facts, real acceptance tasklists, language-tagged code, exact source/comment links, and diagrams for relationships or flow. Consider alerts, collapsed secondary details, citations, images/media, math and specialized diagram formats where the content warrants them. Use native review suggestions, quote replies and attachment flows in their supported contexts. Do not wait for a user to request better formatting.
+
+Apply this to README/docs, issue bodies and new chronological comments, PR descriptions/reviews, Wiki, Project updates and release notes. Preserve historical authors/content, accessibility and actual approval semantics. Use native GFM preview with repository context and inspect the final rendered destination; client-side diagrams/math and Wiki differences require target verification. Formatting does not configure a native relationship or prove a task completed.
+
 ## Repository instructions and documentation
 
 Write the actual repository rules in GITHUB.md and link them from AGENTS.md. Include Project URLs, field/option mapping, issue types and shared issue fields, branch and review rules, CI commands, deployment and release policies, Wiki maintenance and documented capability gates. Respect existing casing and links.

@@ -24,6 +24,20 @@ Download the ZIP/checksum and inspect the workflow run linked from the repositor
 
 The Wiki records release-specific verification, with executable checks and provider/account boundaries.
 
+<details>
+<summary>Independent verification commands</summary>
+
+Replace `PATH_TO_ZIP` with the downloaded release ZIP and `TAG` with this release tag.
+
+```sh
+gh attestation verify PATH_TO_ZIP --repo thinkhome-org/full-github --signer-workflow thinkhome-org/full-github/.github/workflows/release.yml --deny-self-hosted-runners
+gh release verify TAG --repo thinkhome-org/full-github
+```
+
+Check the downloaded checksum and inspect the source/version before relying on the artifact. The release-specific Wiki receipt records actual executed results.
+
+</details>
+
 ## Limitations
 
 The operation registry and option guidance are dated snapshots. Use current official endpoint documentation, schema errata and target-host verification before a consequential change. Administrative, paid and enterprise capabilities depend on the actual credential, organization policy and entitlement.

@@ -24,3 +24,8 @@ Use current official documentation and live schema to settle drift. GitHub Enter
 ## Nested configuration and history
 
 Every capability maps to concrete configuration decisions in data/configuration-options.json. Use options/option for choices and their verification. The complete compressed official REST schema preserves every published nested request/response definition, and schema traverses references. Read source-backed API errata, the domain option references and history-interaction.md before applying changes.
+
+
+## Writing is part of execution
+
+Use [markdown.md](markdown.md) and the github-writing option group across repository files, conversations, reviews, Wiki and delivery. Select useful GFM and supported GitHub rich-writing extensions proactively; preview and verify the actual destination. Native task relationships, approvals and publication still require their own controls.

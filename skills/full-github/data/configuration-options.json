@@ -5460,6 +5460,92 @@
       "pitfalls": [
         "A successful render or catalog lookup proves only that lookup. It is not evidence of repository configuration or publication."
       ]
+    },
+    {
+      "id": "github-writing",
+      "capability_ids": [
+        "repository-content",
+        "issue-comments",
+        "pr-review-comments",
+        "wiki-pages",
+        "wiki-navigation",
+        "admin-platform-markdown-rendering"
+      ],
+      "title": "Active GFM and GitHub rich writing",
+      "options": [
+        {
+          "name": "Surface and dialect",
+          "values": "GFM tables/tasks/strikethrough/autolinks; GitHub alerts, diagrams, math and sanitized HTML extensions",
+          "decision_rule": "Read markdown.md and select features for the actual file/comment/review/Wiki surface; actively improve useful structure without syntax decoration.",
+          "verification": "Inspect the actual rendered destination; separate API HTML preview from client rendering."
+        },
+        {
+          "name": "Structure and navigation",
+          "values": "heading hierarchy, automatic heading anchors, relative paths, custom anchors, explicit URLs",
+          "decision_rule": "Use descriptive headings and meaningful link labels; preserve stable anchors and cross-page paths.",
+          "verification": "Follow anchors/links at the real file ref, Wiki route and intended audience."
+        },
+        {
+          "name": "Comparisons and work",
+          "values": "aligned tables, escaped pipes, nested lists, standard checkbox tasklists",
+          "decision_rule": "Use tables for parallel decisions and tasklists for actual acceptance progress; native sub-issues/dependencies remain separate.",
+          "verification": "Read rendered columns and real checkbox state; reject retired tasklist blocks."
+        },
+        {
+          "name": "Code and review",
+          "values": "language-tagged fences, diff blocks, inline code, review suggestion fences",
+          "decision_rule": "Show executable examples and exact context. Use applicable suggestions in PR review comments only; applying a suggestion can commit code.",
+          "verification": "Inspect highlighting and review target/current head; prose diff is not an applied patch."
+        },
+        {
+          "name": "Attention and detail",
+          "values": "NOTE/TIP/IMPORTANT/WARNING/CAUTION alerts; details/summary; blockquotes",
+          "decision_rule": "Use alerts sparingly for consequential information and details for secondary logs. Keep required decisions and limitations visible.",
+          "verification": "Check real alert/collapse rendering, including Markdown blank lines; do not bury blockers."
+        },
+        {
+          "name": "Visual and mathematical content",
+          "values": "Mermaid, GeoJSON, TopoJSON, ASCII STL, inline/display math",
+          "decision_rule": "Use diagrams for real flows/relationships, maps for location data, meshes for geometry and equations for actual mathematical content.",
+          "verification": "Verify the client-rendered output and provide a textual explanation; do not mistake a returned code block for a rendered diagram."
+        },
+        {
+          "name": "Images and attachments",
+          "values": "alt text, relative images, picture/source theme variants; native attachments",
+          "decision_rule": "Use informative alt text and trusted assets. Feature-detect gh --attach; use native UI if absent. Arbitrary asset URLs do not prove upload.",
+          "verification": "Inspect intended light/dark context, accessible text, attachment destination and visibility."
+        },
+        {
+          "name": "Citations and references",
+          "values": "footnotes, explicit links, issue/PR/commit references, immutable line permalinks",
+          "decision_rule": "Cite official primary sources and use pinned code references for evidence. Footnotes are not supported in Wiki; shorthand references do not autolink in repository files/Wiki.",
+          "verification": "Open canonical evidence and verify audience/context. Use explicit Wiki/file links; snippet unfurl differs from a plain permalink."
+        },
+        {
+          "name": "Participation and permissions",
+          "values": "quote replies, comment permalinks, mentions, team mentions, emoji/reactions",
+          "decision_rule": "Link the actual comment answered and retain chronological posts. Mentions notify people; reactions are not acceptance or authorization.",
+          "verification": "Read back comment body/author/ID and actual authorized review, not a decorative reaction."
+        },
+        {
+          "name": "Publication and preview",
+          "values": "POST /markdown mode gfm with repository context; final target preview and browser",
+          "decision_rule": "Use native preview and source-aware links before publishing; verify the final committed/comment/Wiki/release surface after publication.",
+          "verification": "Retain source ref/comment ID and actual rendering evidence; preview never publishes or proves client behavior."
+        }
+      ],
+      "sources": [
+        "https://github.github.com/gfm/",
+        "https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax",
+        "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting",
+        "https://docs.github.com/en/rest/markdown"
+      ],
+      "community_sources": [],
+      "pitfalls": [
+        "Wiki and repository files do not share all conversation autolinking and footnote behavior.",
+        "A successful Markdown API response does not prove client-side diagram, math, attachment or final destination rendering.",
+        "Markdown checkboxes cannot replace native child issues, blockers, required reviews or verified delivery."
+      ]
     }
   ]
 }

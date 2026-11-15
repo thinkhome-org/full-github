@@ -42,3 +42,10 @@ Reviewed release notes accompany generated change history on new drafts. Existin
 Issue 14 supersedes the assumption that catalog support and PR history sufficiently demonstrate actual use. Existing work issues had zero comments. New comments are required at material events; existing descriptions retain current scope. Retrospective delivery links are explicitly dated as new comments rather than invented past dialogue. Native sub-issues 15/16 separate deliverables; 16 depends on accepting the gate in 15.
 
 Full setup/audit claims require the complete ledger gate plus live evidence inspection. A gate validates claims and cannot make source evidence truthful or force unloaded skills. Relevant controls must be actively assessed in ordinary tasks. Organization-only fields retain their access boundaries; public Project Priority remains distinct. Missing arbitrary dates, destructive moderation or unrelated personal/billing objects are not reasons to manufacture state.
+
+
+## 2026-11-15 — Active GFM and GitHub writing
+
+Issue18 extends active-use behavior to content presentation. Markdown rendering alone did not supply an adequate writing workflow. Use a source-backed runbook and ten concrete decisions across files, comments, reviews, Wiki, Project updates and releases. Improve real navigation/comparisons/acceptance/flow/evidence rather than inserting every syntax into every message. Preserve chronology and authorship.
+
+Use the existing native rendering endpoint for HTML preview and the browser for destination-specific behavior, including client-side diagrams/math. Standard GFM and GitHub extensions differ by surface; no generic regex Markdown checker or new parser dependency is introduced. Specialized maps/meshes and equations require relevant content, not a demonstration in every project document.

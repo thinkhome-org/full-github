@@ -30,7 +30,7 @@ for plugin in marketplace["plugins"]:
     products = policy.get("products")
     assert products is None or (isinstance(products, list) and all(
         product in ("chatgpt", "codex", "atlas", "CHATGPT", "CODEX", "ATLAS") for product in products)), "Unsupported product restrictions"
-for reference in ("features.md", "workflows.md", "operations.md", "collaboration.md", "delivery-security.md", "administration.md", "collaboration-options.md", "delivery-options.md", "administration-options.md", "history-interaction.md", "issue-lifecycle.md", "completion.md"):
+for reference in ("features.md", "workflows.md", "operations.md", "collaboration.md", "delivery-security.md", "administration.md", "collaboration-options.md", "delivery-options.md", "administration-options.md", "history-interaction.md", "issue-lifecycle.md", "completion.md", "markdown.md"):
     assert (root / "skills/full-github/references" / reference).is_file()
 assert (root / "skills/full-github/SKILL.md").read_text().startswith("---\n")
 data = root / "skills/full-github/data"
