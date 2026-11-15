@@ -23,3 +23,5 @@ Keep README installation commands and Wiki pages aligned with shipped behavior. 
 ## Security and applicability
 
 Use read-only CI tokens. Dependabot updates GitHub Actions. No new runtime dependencies. Packages and Pages currently have no separate artifact/site requirement. Local hooks are optional because the same checks run in CI. NOTICE and engines.md are unnecessary for this dependency-free Python/Markdown plugin. License selection remains with the owner.
+
+Project https://github.com/orgs/thinkhome-org/projects/5 uses Status options Todo, In Progress and Done.
