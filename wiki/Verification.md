@@ -1,5 +1,16 @@
 # Verification record
 
+## Version 0.4.1
+
+GitHub writing is now an explicit active-use contract covering repository files, issue comments, PR/reviews, Wiki, Project updates and release notes. The new source-backed runbook distinguishes GFM from product-specific extensions and surface restrictions. Ten new decisions bring the configuration guide to 469 choices in 83 groups.
+
+- 78 regression tests pass; registry validation and generated source/Wiki checks pass. This release changes guidance/content rather than adding a Markdown parser or runtime dependency.
+- Native POST /markdown in gfm mode with repository context rendered README, Writing Wiki source, PR template, release notes and runbook. HTML checks verified tables, disclosures, language fences and task inputs where used. This preview does not publish or establish client-side rendering.
+- Real content now uses a delivery-flow Mermaid diagram with prose, comparable evidence tables, acceptance checkboxes, collapsed secondary detail and explicit cross-surface links. The Wiki writing guide includes a targeted tip.
+- Browser verification of final README/Wiki/issue/PR/release surfaces and downloaded/install/provenance evidence is recorded in the release-specific Wiki receipt.
+
+Specialist math/maps/meshes, theme-dependent images, attachment uploads and applying a review suggestion were documented with official surface/permission constraints, not fabricated to decorate this repository. They are not claimed as live exercised features. Wiki footnotes and file/Wiki conversation shorthand are explicitly unsupported; installed CLI attachment flags are feature-detected.
+
 ## Version 0.4.0
 
 The reported conversation gap was reproduced in the live API and browser. All five prior work issues had zero comments. New comments explicitly add retrospective delivery references without recreating a fictional timeline. Current work in issue 14 uses chronological kickoff/findings/review/delivery entries, native children 15/16, a real blocker relationship and attached plan artifact 1. Shared field visibility is preserved.

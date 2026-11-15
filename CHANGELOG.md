@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.1
+
+- Require active GFM and GitHub writing selection across documentation, conversations, reviews and delivery.
+- Add ten source-backed writing decisions covering formatting, visual content, references, media, review suggestions and surface-specific verification.
+- Improve README/PR/Wiki writing with useful tables, tasklists, diagram, collapsed details and precise evidence links.
+
 ## 0.4.0
 
 - Require active feature reconciliation and new chronological issue comments during delivery; preserve descriptions and independent worker comments.

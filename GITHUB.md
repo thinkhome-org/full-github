@@ -61,3 +61,8 @@ Read skills/full-github/references/issue-lifecycle.md. Append new issue comments
 Native child issues 15/16 decompose work tracked in 14. Use sub-issues for independently accepted work and dependencies for actual ordering. Read native type, labels, assignee, shared values, Project status/priority, milestone and development links. Preserve organization-only issue field visibility and existing Project views. The public Project-local Priority remains visible without exposing restricted owner fields. Start dates are observations; target dates are explicitly best-effort estimates.
 
 Use scripts/audit.py OWNER/REPO --issue NUMBER for issue-level evidence. For full setup/audit use scripts/check_completion.py LEDGER.json with every catalog capability; resolve unfinished rows before claiming full completion. The check validates evidence claims, so linked live state must still be inspected. Ordinary fixes assess all relevant controls without manufacturing irrelevant objects.
+
+
+## Active rich writing
+
+Read skills/full-github/references/markdown.md and the github-writing option group. Actively use helpful GFM/GitHub formatting in substantial files, comments, PR/reviews, Wiki, Project updates and releases. Use real checkboxes, useful comparisons and diagrams, accessible media, precise references and targeted suggestions. Select alerts/collapsible details for their reader purpose. Preview and verify the actual target; surface-specific limits and client-side rendering matter. New progress remains a new chronological comment.

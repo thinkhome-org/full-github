@@ -37,9 +37,39 @@ The first command inspects issue metadata, comments, timeline, shared fields, Pr
 
 The skill provides required behavior and executable checks when loaded. Codex controls skill invocation; a plugin cannot globally intercept unrelated agents or guarantee compliance outside its active workflow.
 
+## GitHub writing that carries the work
+
+| Content | Use actively | Verify |
+| --- | --- | --- |
+| README and Wiki | Navigation, meaningful tables, clear code examples and useful diagrams | Links, real rendering and supported surface |
+| Issues and PRs | Acceptance tasklists, linked evidence, new progress comments and targeted review suggestions | Native relationships, actual checks and preserved conversation |
+| Releases and Project updates | Reader-facing changes, installation/evidence links and collapsible secondary details | Published destination and verified delivery |
+
+```mermaid
+flowchart LR
+  I[Issue and acceptance] --> B[Linked branch and PR]
+  B --> C[Checks and review]
+  C --> R[Verified release]
+  R --> H[New delivery comment and Wiki evidence]
+```
+
+The issue holds scope, comments preserve chronology, and PR/release records supply implementation and delivery evidence.
+
+<details>
+<summary>Inspect writing options and rendering requirements</summary>
+
+```sh
+python3 scripts/operations.py option github-writing
+python3 scripts/operations.py describe markdown/render
+```
+
+The [writing runbook](skills/full-github/references/markdown.md) covers GFM plus GitHub-specific alerts, collapsed sections, diagrams, math, citations, media, review suggestions and references. Select each feature for a concrete reader need and verify its destination. The [Wiki writing guide](https://github.com/thinkhome-org/full-github/wiki/Writing) demonstrates the supported documentation workflow.
+
+</details>
+
 ## Coverage
 
-The 2026-11-15 inventory contains **261 capability families**, **1,281 published REST operations**, **32 GraphQL queries**, **285 GraphQL mutations** and **1,881 GraphQL types**. The configuration layer contains 459 concrete option decisions across 82 groups. Deprecated and retired operations are identified separately. Eighteen confirmed retired operations are blocked by the REST executor.
+The 2026-11-15 inventory contains **261 capability families**, **1,281 published REST operations**, **32 GraphQL queries**, **285 GraphQL mutations** and **1,881 GraphQL types**. The configuration layer contains 469 concrete option decisions across 83 groups. Deprecated and retired operations are identified separately. Eighteen confirmed retired operations are blocked by the REST executor.
 
 - Repository content, Git, Issues, owner issue fields, sub-issues/dependencies, PR stacks, Agent Merge, reviews, rulesets and merge queues.
 - Projects fields/options, table/board/roadmap views, view CRUD, workflows, status updates, templates and Insights.

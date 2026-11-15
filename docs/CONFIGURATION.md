@@ -1,6 +1,6 @@
 # Configuration decisions
 
-Reviewed 2026-11-15. 82 decision groups contain 459 concrete configuration choices covering every catalog capability.
+Reviewed 2026-11-15. 83 decision groups contain 469 concrete configuration choices covering every catalog capability.
 
 Choose settings from the project's actual requirements, observed state, access policy and host version. Record the selected value, rationale, owner, historical evidence and read-back verification. Preserve existing custom settings and identities.
 
@@ -2379,4 +2379,36 @@ Capabilities admin-platform-meta, admin-platform-rate-limits, admin-platform-lic
 - [Official sources 4](https://docs.github.com/en/rest/gitignore)
 - [Official sources 5](https://docs.github.com/en/rest/emojis)
 - [Official sources 6](https://docs.github.com/en/rest/markdown)
+
+## Active GFM and GitHub rich writing
+
+Group ID github-writing.
+
+Capabilities repository-content, issue-comments, pr-review-comments, wiki-pages, wiki-navigation, admin-platform-markdown-rendering.
+
+| Setting | Values and defaults | Decision rule | Verification |
+| --- | --- | --- | --- |
+| Surface and dialect | GFM tables/tasks/strikethrough/autolinks; GitHub alerts, diagrams, math and sanitized HTML extensions | Read markdown.md and select features for the actual file/comment/review/Wiki surface; actively improve useful structure without syntax decoration. | Inspect the actual rendered destination; separate API HTML preview from client rendering. |
+| Structure and navigation | heading hierarchy, automatic heading anchors, relative paths, custom anchors, explicit URLs | Use descriptive headings and meaningful link labels; preserve stable anchors and cross-page paths. | Follow anchors/links at the real file ref, Wiki route and intended audience. |
+| Comparisons and work | aligned tables, escaped pipes, nested lists, standard checkbox tasklists | Use tables for parallel decisions and tasklists for actual acceptance progress; native sub-issues/dependencies remain separate. | Read rendered columns and real checkbox state; reject retired tasklist blocks. |
+| Code and review | language-tagged fences, diff blocks, inline code, review suggestion fences | Show executable examples and exact context. Use applicable suggestions in PR review comments only; applying a suggestion can commit code. | Inspect highlighting and review target/current head; prose diff is not an applied patch. |
+| Attention and detail | NOTE/TIP/IMPORTANT/WARNING/CAUTION alerts; details/summary; blockquotes | Use alerts sparingly for consequential information and details for secondary logs. Keep required decisions and limitations visible. | Check real alert/collapse rendering, including Markdown blank lines; do not bury blockers. |
+| Visual and mathematical content | Mermaid, GeoJSON, TopoJSON, ASCII STL, inline/display math | Use diagrams for real flows/relationships, maps for location data, meshes for geometry and equations for actual mathematical content. | Verify the client-rendered output and provide a textual explanation; do not mistake a returned code block for a rendered diagram. |
+| Images and attachments | alt text, relative images, picture/source theme variants; native attachments | Use informative alt text and trusted assets. Feature-detect gh --attach; use native UI if absent. Arbitrary asset URLs do not prove upload. | Inspect intended light/dark context, accessible text, attachment destination and visibility. |
+| Citations and references | footnotes, explicit links, issue/PR/commit references, immutable line permalinks | Cite official primary sources and use pinned code references for evidence. Footnotes are not supported in Wiki; shorthand references do not autolink in repository files/Wiki. | Open canonical evidence and verify audience/context. Use explicit Wiki/file links; snippet unfurl differs from a plain permalink. |
+| Participation and permissions | quote replies, comment permalinks, mentions, team mentions, emoji/reactions | Link the actual comment answered and retain chronological posts. Mentions notify people; reactions are not acceptance or authorization. | Read back comment body/author/ID and actual authorized review, not a decorative reaction. |
+| Publication and preview | POST /markdown mode gfm with repository context; final target preview and browser | Use native preview and source-aware links before publishing; verify the final committed/comment/Wiki/release surface after publication. | Retain source ref/comment ID and actual rendering evidence; preview never publishes or proves client behavior. |
+
+### Pitfalls
+
+- Wiki and repository files do not share all conversation autolinking and footnote behavior.
+- A successful Markdown API response does not prove client-side diagram, math, attachment or final destination rendering.
+- Markdown checkboxes cannot replace native child issues, blockers, required reviews or verified delivery.
+
+### Official sources
+
+- [Official sources 1](https://github.github.com/gfm/)
+- [Official sources 2](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
+- [Official sources 3](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting)
+- [Official sources 4](https://docs.github.com/en/rest/markdown)
 

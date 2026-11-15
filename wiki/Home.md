@@ -6,7 +6,7 @@ Full GitHub brings source-backed GitHub capability discovery and execution into 
 
 ## Start
 
-Read [[Installation]] and [[Usage]], then browse [[Capabilities]], [[Configuration]] and [[API]]. Use [[Workflow]] for required active delivery and chronological issue comments. Read [[History]] for execution/decision records and [[Community]] for real questions, proposals and review. [[Architecture]], [[Permissions]] and [[Verification]] explain how the plugin works and what was tested.
+Read [[Installation]] and [[Usage]], then browse [[Capabilities]], [[Configuration]] and [[API]]. Use [[Workflow]] and [[Writing]] for required active delivery and chronological issue comments. Read [[History]] for execution/decision records and [[Community]] for real questions, proposals and review. [[Architecture]], [[Permissions]] and [[Verification]] explain how the plugin works and what was tested.
 
 ## Complete inventory
 
