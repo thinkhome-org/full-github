@@ -1,0 +1,10 @@
+name: Workflow improvement
+description: Propose a GitHub capability
+labels: [enhancement]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: User outcome and verification
+    validations:
+      required: true

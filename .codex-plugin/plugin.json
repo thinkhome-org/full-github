@@ -1,0 +1,21 @@
+{
+  "name": "full-github",
+  "version": "0.1.0",
+  "description": "Use GitHub fully throughout repository setup, delivery and maintenance.",
+  "author": {
+    "name": "ThinkHome",
+    "url": "https://github.com/thinkhome-org"
+  },
+  "homepage": "https://github.com/thinkhome-org/full-github",
+  "repository": "https://github.com/thinkhome-org/full-github",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Full GitHub",
+    "shortDescription": "Complete GitHub workflows for Codex",
+    "defaultPrompt": [
+      "Audit this repository with Full GitHub.",
+      "Set up this repository using the full profile.",
+      "Deliver this issue and update its Project and Wiki."
+    ]
+  }
+}
